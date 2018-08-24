@@ -6,7 +6,7 @@ const equal = require('../js/utils/equal')
 describe('Utility method for comparing floating point numbers', () => {
   describe('Two floating point numbers', () => {
     let a = 2.12345;
-    let b = 2.12346;
+    let b = 2.12345;
 
     let isEqual = equal(a, b);
 
