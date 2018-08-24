@@ -1,21 +1,29 @@
 'use strict'
 
 const expect = require('chai').expect
+const Point = require('./point')
+const Vector = require('./vector')
 
-describe('An object with w = 1.0 is a point', () => {
+describe('Points and vectors', () => {
   describe('A point object', () => {
-    let point = {x: 4.3, y: -4.2, z: 3.1, w: 1.0};
+    let point = new Point(4.3, 4.2, 3.1);
 
     it('should contain a w property with a value equal to 1.0 and not 0.0', () => {
+      expect(point.x).to.equal(4.3);
+      expect(point.y).to.equal(4.2);
+      expect(point.z).to.equal(3.1);
       expect(point.w).to.equal(1.0);
       expect(point.w).to.not.equal(0.0);
     })
   })
 	
   describe('A vector object', () => {
-    let vector = {x: 4.3, y: -4.2, z: 3.1, w: 0.0};
+    let vector = new Vector(4.3, -4.2, 3.1);
 
     it('should contain a w property with a value equal to 0.0 and not 1.0', () => {
+      expect(point.x).to.equal(4.3);
+      expect(point.y).to.equal(-4.2);
+      expect(point.z).to.equal(3.1);
       expect(vector.w).to.equal(0.0);
       expect(vector.w).to.not.equal(1.0);
     })
