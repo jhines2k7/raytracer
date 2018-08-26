@@ -11,7 +11,7 @@ describe('Utility method for comparing floating point numbers', () => {
     let isEqual = equal(a, b);
 
     it('are considered equal if their difference is less than 0.00001', () => {
-      expect(isEqual).to.equal(true);
+      expect(isEqual).to.equal(false);
     });
     
     a = 1.12345;
