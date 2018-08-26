@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
 const subtract = require('../js/utils/subtraction');
 const Point = require('../js/point');
+const Vector = require('../js/vector');
 
 describe('Subtracting two points', () => {
   it('given two points subtract creates a vector', () => {
@@ -15,6 +16,15 @@ describe('Subtracting two points', () => {
     expect(a.x).to.equal(-2);
     expect(a.y).to.equal(-4);
     expect(a.z).to.equal(-6);
+    expect(a.w).to.equal(0);
+  });
+
+  it('given a vector (2, 3, 4) and a vector (5, 6, 7) subtract creates a vector (-3, -3, -3, 0)', () => {
+    let a = subtract(new Vector(2, 3, 4), new Vector(5, 6, 7));
+
+    expect(a.x).to.equal(-3);
+    expect(a.y).to.equal(-3);
+    expect(a.z).to.equal(-3);
     expect(a.w).to.equal(0);
   });
 });
