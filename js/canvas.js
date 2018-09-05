@@ -12,7 +12,7 @@ module.exports = class Canvas {
       this.pixels[i] = new Array(width);
 
       for(let j = 0; j < width; j++) {
-        this.pixels[i][j] = null;
+        this.pixels[i][j] = backgroundColor;
       }
     }
   }

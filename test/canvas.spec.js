@@ -40,6 +40,31 @@ describe('Creating a canvas', () => {
     expect(canvas.pixels[1].length).to.equal(3);
   });
 
+  it('when constructed should create a two dimensional array of pixels that each have the color red', () => {
+    let canvas = new Canvas(2, 2, new Color(1, 0, 0));
+
+    for(let i = 0; i < 2; i++) {
+      for(let j = 0; j < 2; j++) {
+        expect(canvas.pixels[i][j].red).to.equal(1);
+        expect(canvas.pixels[i][j].green).to.equal(0);
+        expect(canvas.pixels[i][j].blue).to.equal(0);
+      }
+    }
+  });
+
+  it('when constructed should create a two dimensional array of pixels that each have the color blue', () => {
+    let width = 10, height = 10;
+    let canvas = new Canvas(width, height, new Color(0, 0, 1));
+
+    for(let i = 0; i < width; i++) {
+      for(let j = 0; j < height; j++) {
+        expect(canvas.pixels[i][j].red).to.equal(0);
+        expect(canvas.pixels[i][j].green).to.equal(0);
+        expect(canvas.pixels[i][j].blue).to.equal(1);
+      }
+    }
+  });
+
   // it('when constructed, writePixel should be called for each pixel on the canvas', () => {
   //   let canvas = new Canvas(2, 2, new Color(1, 0, 0));
   //
