@@ -3,6 +3,8 @@
 const chai = require('chai'),
   spies = require('chai-spies');
 
+const should = require('chai').should();
+
 chai.use(spies);
 
 const sandbox = chai.spy.sandbox();
@@ -23,11 +25,26 @@ describe('Creating a canvas', () => {
     expect(canvas.backgroundColor.blue).to.equal(0);
   });
 
-  it('when constructed, writePixel should be called for each pixel on the canvas', () => {
-    let canvas = new Canvas(2, 2, new Color(1, 0, 0));
+  it('when constructed should create a two dimensional array of pixels with a width of 2 and a height of 3', () => {
+    let canvas = new Canvas(2, 3, new Color(0, 0, 0));
 
-    sandbox.on(canvas, ['writePixel']);
-
-    expect(canvas.writePixel).to.have.been.called.exactly(4);
+    expect(canvas.pixels[0].length).to.equal(2);
+    expect(canvas.pixels[1].length).to.equal(2);
+    expect(canvas.pixels[2].length).to.equal(2);
   });
+
+  it('when constructed should create a two dimensional array of pixels with a width of 3 and a height of 2', () => {
+    let canvas = new Canvas(3, 2, new Color(0, 0, 0));
+
+    expect(canvas.pixels[0].length).to.equal(3);
+    expect(canvas.pixels[1].length).to.equal(3);
+  });
+
+  // it('when constructed, writePixel should be called for each pixel on the canvas', () => {
+  //   let canvas = new Canvas(2, 2, new Color(1, 0, 0));
+  //
+  //   sandbox.on(canvas, ['writePixel']);
+  //
+  //   expect(canvas.writePixel).to.have.been.called.exactly(4);
+  // });
 });
