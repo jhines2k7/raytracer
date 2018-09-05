@@ -10,6 +10,8 @@ describe('Creating a canvas', () => {
 
     expect(canvas.width).to.equal(10);
     expect(canvas.height).to.equal(20);
-    expect(canvas.backgroundColor).to.equal(10);
+    expect(canvas.backgroundColor.red).to.equal(0);
+    expect(canvas.backgroundColor.green).to.equal(0);
+    expect(canvas.backgroundColor.blue).to.equal(0);
   });
 });
