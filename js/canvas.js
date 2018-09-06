@@ -11,7 +11,7 @@ module.exports = class Canvas {
     for(let i = 0; i < height; i++) {
       let row = new Array(width);
       
-      for(let column = 0; column < width; c++) {
+      for(let column = 0; column < width; column++) {
         row[column] = backgroundColor;
       }
       
