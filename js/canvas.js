@@ -15,7 +15,7 @@ module.exports = class Canvas {
         row[column] = backgroundColor;
       }
       
-      this.pixels[i] = row;      
+      this.pixels.push(row);      
     }
   }
 
