@@ -78,4 +78,19 @@ describe('Creating a canvas', () => {
     expect(canvas.pixels[0][2].green).to.equal(1);
     expect(canvas.pixels[0][2].blue).to.equal(0);
   });
+
+
+  it('calls writePixel to set the color of a pixel on the canvas', () => {
+    let canvas = new Canvas(3, 2, new Color(0, 0, 1));
+
+    canvas.writePixel(2, 1, new Color(0, 1, 0));
+
+    expect(canvas.pixels[0][0].red).to.equal(0);
+    expect(canvas.pixels[0][0].green).to.equal(0);
+    expect(canvas.pixels[0][0].blue).to.equal(1);
+
+    expect(canvas.pixels[2][1].red).to.equal(0);
+    expect(canvas.pixels[2][1].green).to.equal(1);
+    expect(canvas.pixels[2][1].blue).to.equal(0);
+  });
 });
