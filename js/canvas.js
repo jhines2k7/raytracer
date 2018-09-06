@@ -6,16 +6,16 @@ module.exports = class Canvas {
     this.height = height;
     this.backgroundColor = backgroundColor;
 
-    this.pixels = new Array(height);
+    this.pixels = new Array(width);
 
-    for(let i = 0; i < height; i++) {
-      let row = new Array(width);
+    for(let i = 0; i < width; i++) {
+      let row = new Array(height);
       
-      for(let column = 0; column < width; column++) {
+      for(let column = 0; column < height; column++) {
         row[column] = backgroundColor;
       }
       
-      this.pixels.push(row);      
+      this.pixels[i] = row;
     }
   }
 

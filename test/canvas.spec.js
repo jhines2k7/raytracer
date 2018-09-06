@@ -28,16 +28,16 @@ describe('Creating a canvas', () => {
   it('when constructed should create a two dimensional array of pixels with a width of 2 and a height of 3', () => {
     let canvas = new Canvas(2, 3, new Color(0, 0, 0));
 
-    expect(canvas.pixels[0].length).to.equal(2);
-    expect(canvas.pixels[1].length).to.equal(2);
-    expect(canvas.pixels[2].length).to.equal(2);
+    expect(canvas.pixels[0].length).to.equal(3);
+    expect(canvas.pixels[1].length).to.equal(3);
   });
 
   it('when constructed should create a two dimensional array of pixels with a width of 3 and a height of 2', () => {
     let canvas = new Canvas(3, 2, new Color(0, 0, 0));
 
-    expect(canvas.pixels[0].length).to.equal(3);
-    expect(canvas.pixels[1].length).to.equal(3);
+    expect(canvas.pixels[0].length).to.equal(2);
+    expect(canvas.pixels[1].length).to.equal(2);
+    expect(canvas.pixels[2].length).to.equal(2);
   });
 
   it('when constructed should create a two dimensional array of pixels that each have the color red', () => {
