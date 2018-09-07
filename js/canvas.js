@@ -22,4 +22,8 @@ module.exports = class Canvas {
   writePixel(x, y, color) {
     this.pixels[x][y] = color;
   }
+
+  canvasToPpm() {
+    return `P3\n${this.width} ${this.height}\n255`;
+  }
 };

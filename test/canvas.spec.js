@@ -93,4 +93,20 @@ describe('Creating a canvas', () => {
     expect(canvas.pixels[2][1].green).to.equal(1);
     expect(canvas.pixels[2][1].blue).to.equal(0);
   });
+
+  it('canvasToPpm returns a ppm formatted string for a 300 x 200 pixel canvas', () => {
+    let canvas = new Canvas(300, 200, new Color(0, 0, 0));
+
+    let ppmString = canvas.canvasToPpm();
+
+    expect(ppmString).to.equal('P3\n300 200\n255');
+  });
+
+  it('canvasToPpm returns a ppm formatted string for a 350 x 250 pixel canvas', () => {
+    let canvas = new Canvas(350, 250, new Color(0, 0, 0));
+
+    let ppmString = canvas.canvasToPpm();
+
+    expect(ppmString).to.equal('P3\n350 250\n255');
+  });
 });
