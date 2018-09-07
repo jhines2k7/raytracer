@@ -99,7 +99,7 @@ describe('Creating a canvas', () => {
 
     let ppmString = canvas.canvasToPpm();
 
-    expect(ppmString).to.equal('P3\n300 200\n255');
+    expect(ppmString.includes('P3\n300 200\n255')).to.equal(true);
   });
 
   it('canvasToPpm returns a ppm formatted string for a 350 x 250 pixel canvas', () => {
@@ -107,6 +107,40 @@ describe('Creating a canvas', () => {
 
     let ppmString = canvas.canvasToPpm();
 
-    expect(ppmString).to.equal('P3\n350 250\n255');
+    expect(ppmString.includes('P3\n350 250\n255')).to.equal(true);
   });
+
+  it('canvasToPpm returns a ppm formatted string with correct pixel data for a 5 x 3 canvas with a background color of green', () => {
+    let canvas = new Canvas(5, 3, new Color(0, 1, 0));
+
+    let ppmString = canvas.canvasToPpm();
+
+    expect(ppmString).to.equal('P3\n5 3\n255\n0 255 0 0 255 0 0 255 0 0 255 0 0 255 0\n0 255 0 0 255 0 0 255 0 0 255 0 0 255 0\n0 255 0 0 255 0 0 255 0 0 255 0 0 255 0\n');
+  });
+
+  it('canvasToPpm returns a ppm formatted string with correct pixel data for a 5 x 3 canvas with a background color of red', () => {
+    let canvas = new Canvas(5, 3, new Color(1, 0, 0));
+
+    let ppmString = canvas.canvasToPpm();
+
+    expect(ppmString).to.equal('P3\n5 3\n255\n255 0 0 255 0 0 255 0 0 255 0 0 255 0 0\n255 0 0 255 0 0 255 0 0 255 0 0 255 0 0\n255 0 0 255 0 0 255 0 0 255 0 0 255 0 0\n');
+  });
+
+  it('canvasToPpm returns a ppm formatted string with correct pixel data for a 5 x 3 canvas with a background color of black', () => {
+    it('and red pixels at (0, 0), (4, 0), (1, 2), (2, 0), (2, 4)', () => {
+      let canvas = new Canvas(5, 3, new Color(0, 0, 0));
+
+      let red = new Color(1, 0, 0);
+
+      canvas.writePixel(0, 0, red);
+      canvas.writePixel(0, 4, red);
+      canvas.writePixel(1, 2, red);
+      canvas.writePixel(2, 0, red);
+      canvas.writePixel(2, 4, red);
+
+      let ppmString = canvas.canvasToPpm();
+
+      expect(ppmString).to.equal('P3\n5 3\n255\n255 0 0 0 0 0 0 0 0 0 0 0 255 0 0\n0 0 0 0 0 0 255 0 0 0 0 0 0 0 0\n255 0 0 0 0 0 0 0 0 0 0 0 255 0 0\n');
+    });
+  })
 });
