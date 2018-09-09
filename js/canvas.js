@@ -20,7 +20,11 @@ module.exports = class Canvas {
   }
 
   writePixel(x, y, color) {
-    this.pixels[x][y] = color;
+    this.pixels[y][x] = color;
+  }
+
+  pixelAt(x, y) {
+    return this.pixels[y][x];
   }
 
   canvasToPpm() {

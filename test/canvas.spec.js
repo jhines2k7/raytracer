@@ -65,33 +65,59 @@ describe('Creating a canvas', () => {
     }
   });
 
-  it('calls writePixel to set the color of a pixel on the canvas', () => {
+  it('calls pixelAt to return a pixel at the given x, y coordinates', () => {
     let canvas = new Canvas(3, 2, new Color(0, 0, 1));
 
-    canvas.writePixel(0, 2, new Color(0, 1, 0));
+    canvas.writePixel(0, 1, new Color(0, 1, 0));
 
-    expect(canvas.pixels[0][0].red).to.equal(0);
-    expect(canvas.pixels[0][0].green).to.equal(0);
-    expect(canvas.pixels[0][0].blue).to.equal(1);
+    let pixelOne = canvas.pixelAt(0, 0);
 
-    expect(canvas.pixels[0][2].red).to.equal(0);
-    expect(canvas.pixels[0][2].green).to.equal(1);
-    expect(canvas.pixels[0][2].blue).to.equal(0);
+    expect(pixelOne.red).to.equal(0);
+    expect(pixelOne.green).to.equal(0);
+    expect(pixelOne.blue).to.equal(1);
+
+    let pixelTwo = canvas.pixelAt(0, 1);
+
+    expect(pixelTwo.red).to.equal(0);
+    expect(pixelTwo.green).to.equal(1);
+    expect(pixelTwo.blue).to.equal(0);
+  });
+
+  it('calls writePixel to set the color of a pixel on the canvas with a background color of blue', () => {
+    let canvas = new Canvas(3, 2, new Color(0, 0, 1));
+
+    canvas.writePixel(0, 1, new Color(0, 1, 0));
+
+    let pixelOne = canvas.pixelAt(0, 0);
+
+    expect(pixelOne.red).to.equal(0);
+    expect(pixelOne.green).to.equal(0);
+    expect(pixelOne.blue).to.equal(1);
+
+    let pixelTwo = canvas.pixelAt(0, 1);
+
+    expect(pixelTwo.red).to.equal(0);
+    expect(pixelTwo.green).to.equal(1);
+    expect(pixelTwo.blue).to.equal(0);
   });
 
 
-  it('calls writePixel to set the color of a pixel on the canvas', () => {
-    let canvas = new Canvas(3, 2, new Color(0, 0, 1));
+  it('calls writePixel to set the color of a pixel on the canvas with a background color of white', () => {
+    let canvas = new Canvas(3, 2, new Color(1, 1, 1));
 
     canvas.writePixel(2, 1, new Color(0, 1, 0));
 
-    expect(canvas.pixels[0][0].red).to.equal(0);
-    expect(canvas.pixels[0][0].green).to.equal(0);
-    expect(canvas.pixels[0][0].blue).to.equal(1);
+    let pixelOne = canvas.pixelAt(0, 0);
 
-    expect(canvas.pixels[2][1].red).to.equal(0);
-    expect(canvas.pixels[2][1].green).to.equal(1);
-    expect(canvas.pixels[2][1].blue).to.equal(0);
+    expect(pixelOne.red).to.equal(1);
+    expect(pixelOne.green).to.equal(1);
+    expect(pixelOne.blue).to.equal(1);
+
+    let pixelTwo = canvas.pixelAt(2, 1);
+
+    expect(pixelTwo.red).to.equal(0);
+    expect(pixelTwo.green).to.equal(1);
+    expect(pixelTwo.blue).to.equal(0);
   });
 
   it('canvasToPpm returns a ppm formatted string for a 300 x 200 pixel canvas', () => {
@@ -126,21 +152,30 @@ describe('Creating a canvas', () => {
     expect(ppmString).to.equal('P3\n5 3\n255\n255 0 0 255 0 0 255 0 0 255 0 0 255 0 0\n255 0 0 255 0 0 255 0 0 255 0 0 255 0 0\n255 0 0 255 0 0 255 0 0 255 0 0 255 0 0\n');
   });
 
-  it('canvasToPpm returns a ppm formatted string with correct pixel data for a 5 x 3 canvas with a background color of black', () => {
-    it('and red pixels at (0, 0), (4, 0), (1, 2), (2, 0), (2, 4)', () => {
-      let canvas = new Canvas(5, 3, new Color(0, 0, 0));
+  it('canvasToPpm returns a ppm formatted string with correct pixel data for a 5 x 3 canvas with a background color of black and red pixels at (0, 0), (4, 0), (1, 2), (2, 0), (2, 4)', () => {
+    let canvas = new Canvas(5, 3, new Color(0, 0, 0));
 
-      let red = new Color(1, 0, 0);
+    let red = new Color(1, 0, 0);
 
-      canvas.writePixel(0, 0, red);
-      canvas.writePixel(0, 4, red);
-      canvas.writePixel(1, 2, red);
-      canvas.writePixel(2, 0, red);
-      canvas.writePixel(2, 4, red);
+    canvas.writePixel(0, 0, red);
+    canvas.writePixel(0, 4, red);
+    canvas.writePixel(1, 2, red);
+    canvas.writePixel(2, 0, red);
+    canvas.writePixel(2, 4, red);
 
-      let ppmString = canvas.canvasToPpm();
+    let ppmString = canvas.canvasToPpm();
 
-      expect(ppmString).to.equal('P3\n5 3\n255\n255 0 0 0 0 0 0 0 0 0 0 0 255 0 0\n0 0 0 0 0 0 255 0 0 0 0 0 0 0 0\n255 0 0 0 0 0 0 0 0 0 0 0 255 0 0\n');
-    });
-  })
+    expect(ppmString).to.equal('P3\n5 3\n255\n255 0 0 0 0 0 0 0 0 0 0 0 255 0 0\n0 0 0 0 0 0 255 0 0 0 0 0 0 0 0\n255 0 0 0 0 0 0 0 0 0 0 0 255 0 0\n');
+  });
+
+  it('pixel data lines do not exceed 70 characters', () => {
+    let canvas = new Canvas(10, 2, new Color(1, 0.8, 0.6));
+
+    let ppmString = canvas.canvasToPpm();
+
+    expect(ppmString).to.equal('P3\n10 2\n255\n255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n' +
+      '153 255 204 153 255 204 153 255 204 153 255 204 153\n' +
+      '255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n' +
+      '153 255 204 153 255 204 153 255 204 153 255 204 153\n')
+  });
 });
