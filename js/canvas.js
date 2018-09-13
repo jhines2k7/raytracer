@@ -42,4 +42,18 @@ module.exports = class Canvas {
 
     return ppmString;
   }
+
+  splitPixelData(pixelData, maxLineLength) {
+    let splitPixelData = '';
+
+    for(let i = 0; i < pixelData.length; i++) {
+      if(i % maxLineLength - 1 === 0) {
+        splitPixelData += '\n'; 
+      } else {
+        splitPixelData += pixelData.charAt(i);
+      }
+    }
+
+    return splitPixelData;
+  }
 };
