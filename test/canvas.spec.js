@@ -188,6 +188,6 @@ describe('Creating a canvas', () => {
     
     let splitPixelData = canvas.splitPixelData(pixelData, MAX_LENGTH);
 
-    expect(splitPixelData).to.equal('255 204 153 255 204 153 255 204 153 255 204 153 255 204 153\n255 204 153 255 204 153 255 204 153 255 204 153 255 204 153');
+    expect(splitPixelData).to.equal('255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n153 255 204 153 255 204 153 255 204 153 255 204 153');
   });
 });
