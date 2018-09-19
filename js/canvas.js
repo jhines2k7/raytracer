@@ -45,17 +45,31 @@ module.exports = class Canvas {
 
   splitPixelData(pixelData, maxLineLength) {
     let splitPixelData = '';
+    let pixelValues = '', charsProcessedSoFar = 0;
 
     if(pixelData.length > maxLineLength) {
-      for(let i = 0; i < pixelData.length; i++) {
-        if(i % (maxLineLength - 1) === 0 && i !== 0) {
-          if(pixelData.charAt(i) !== '') {
-            splitPixelData += `\n${pixelData.charAt(i)}`;
-          } else {
-            splitPixelData += '\n';
-          }
+      for(let i = 0; i < pixelData.length;) {
+        pixelValues = '';
+
+        while(pixelData.charAt(i) !== ' ' && i < pixelData.length) {
+          pixelValues += pixelData.charAt(i);
+          i++;
+          charsProcessedSoFar++;
+        }
+
+        charsProcessedSoFar++;
+        i++;
+
+        if(charsProcessedSoFar > maxLineLength) {
+          splitPixelData = splitPixelData.substring(0, splitPixelData.length - 1);
+          splitPixelData += `\n${pixelValues}`;
+          charsProcessedSoFar = 0;
         } else {
-          splitPixelData += pixelData.charAt(i);
+          splitPixelData += `${pixelValues}`;
+        }
+
+        if(i < pixelData.length) {
+          splitPixelData += ' ';
         }
       }
     } else {

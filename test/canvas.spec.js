@@ -190,4 +190,16 @@ describe('Creating a canvas', () => {
 
     expect(splitPixelData).to.equal('255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n153 255 204 153 255 204 153 255 204 153 255 204 153');
   });
+
+  it("Canvas::splitPixelData takes a line and adds a newline character at multiples of the given maximum length when all pixel values are 0", () => {
+    let canvas = new Canvas(2, 2, new Color(0,0,0));
+
+    let pixelData = '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0';
+
+    const MAX_LENGTH = 70;
+
+    let splitPixelData = canvas.splitPixelData(pixelData, MAX_LENGTH);
+
+    expect(splitPixelData).to.equal('0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0');
+  });
 });
