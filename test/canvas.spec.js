@@ -214,4 +214,12 @@ describe('Creating a canvas', () => {
 
     expect(splitPixelData).to.equal('255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204');
   });
+
+  it("PPM files are terminated by a newline", () => {
+    let canvas = new Canvas(10, 2, new Color(1, 0.8, 0.6));
+
+    let ppmString = canvas.canvasToPpm();
+
+    expect(ppmString.slice(-1)).to.equal('\n');
+  });
 });
