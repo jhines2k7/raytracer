@@ -28,19 +28,24 @@ module.exports = class Canvas {
   }
 
   canvasToPpm() {
-    let ppmString = `P3\n${this.width} ${this.height}\n255\n`;
+    let header = `P3\n${this.width} ${this.height}\n255\n`;
+    let ppmString = '';
+    let pixelData = '';
+    const MAX_LINE_LENGTH = 70;
 
     for(let i = 0; i < this.height; i++) {
       for(let j = 0; j < this.width; j++) {
-        ppmString += `${this.pixels[j][i].redValue} ${this.pixels[j][i].greenValue} ${this.pixels[j][i].blueValue}`;
+        pixelData += `${this.pixels[j][i].redValue} ${this.pixels[j][i].greenValue} ${this.pixels[j][i].blueValue}`;
 
-        if(j !== this.width - 1) ppmString += ' ';
+        if(j !== this.width - 1) pixelData += ' ';
       }
 
-      ppmString += '\n';
+      ppmString += `${this.splitPixelData(pixelData, MAX_LINE_LENGTH)}\n`;
+
+      pixelData = ''
     }
 
-    return ppmString;
+    return header + ppmString;
   }
 
   splitPixelData(pixelData, maxLineLength) {

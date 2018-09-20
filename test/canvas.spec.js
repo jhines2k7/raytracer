@@ -168,7 +168,7 @@ describe('Creating a canvas', () => {
     expect(ppmString).to.equal('P3\n5 3\n255\n255 0 0 0 0 0 0 0 0 0 0 0 255 0 0\n0 0 0 0 0 0 255 0 0 0 0 0 0 0 0\n255 0 0 0 0 0 0 0 0 0 0 0 255 0 0\n');
   });
 
-  xit('pixel data lines do not exceed 70 characters', () => {
+  it('pixel data lines do not exceed 70 characters', () => {
     let canvas = new Canvas(10, 2, new Color(1, 0.8, 0.6));
 
     let ppmString = canvas.canvasToPpm();
@@ -201,5 +201,17 @@ describe('Creating a canvas', () => {
     let splitPixelData = canvas.splitPixelData(pixelData, MAX_LENGTH);
 
     expect(splitPixelData).to.equal('0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0');
+  });
+
+  it("Canvas::splitPixelData returns an unsplit line if the line is less than maximum length", () => {
+    let canvas = new Canvas(2, 2, new Color(0,0,0));
+
+    let pixelData = '255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204';
+
+    const MAX_LENGTH = 70;
+
+    let splitPixelData = canvas.splitPixelData(pixelData, MAX_LENGTH);
+
+    expect(splitPixelData).to.equal('255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204');
   });
 });
