@@ -68,7 +68,7 @@ describe('Creating a canvas', () => {
   it('calls pixelAt to return a pixel at the given x, y coordinates', () => {
     let canvas = new Canvas(3, 2, new Color(0, 0, 1));
 
-    canvas.writePixel(0, 1, new Color(0, 1, 0));
+    canvas.writePixel(1, 0, new Color(0, 1, 0));
 
     let pixelOne = canvas.pixelAt(0, 0);
 
@@ -86,7 +86,7 @@ describe('Creating a canvas', () => {
   it('calls writePixel to set the color of a pixel on the canvas with a background color of blue', () => {
     let canvas = new Canvas(3, 2, new Color(0, 0, 1));
 
-    canvas.writePixel(0, 1, new Color(0, 1, 0));
+    canvas.writePixel(1, 0, new Color(0, 1, 0));
 
     let pixelOne = canvas.pixelAt(0, 0);
 
@@ -105,7 +105,7 @@ describe('Creating a canvas', () => {
   it('calls writePixel to set the color of a pixel on the canvas with a background color of white', () => {
     let canvas = new Canvas(3, 2, new Color(1, 1, 1));
 
-    canvas.writePixel(2, 1, new Color(0, 1, 0));
+    canvas.writePixel(1, 2, new Color(0, 1, 0));
 
     let pixelOne = canvas.pixelAt(0, 0);
 
@@ -158,10 +158,10 @@ describe('Creating a canvas', () => {
     let red = new Color(1, 0, 0);
 
     canvas.writePixel(0, 0, red);
-    canvas.writePixel(0, 4, red);
-    canvas.writePixel(1, 2, red);
-    canvas.writePixel(2, 0, red);
-    canvas.writePixel(2, 4, red);
+    canvas.writePixel(4, 0, red);
+    canvas.writePixel(2, 1, red);
+    canvas.writePixel(0, 2, red);
+    canvas.writePixel(4, 2, red);
 
     let ppmString = canvas.canvasToPpm();
 

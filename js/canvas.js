@@ -20,7 +20,7 @@ module.exports = class Canvas {
   }
 
   writePixel(x, y, color) {
-    this.pixels[y][x] = color;
+    this.pixels[x][y] = color;
   }
 
   pixelAt(x, y) {
