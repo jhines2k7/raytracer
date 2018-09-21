@@ -36,8 +36,6 @@ let canvasX = 0, canvasY = 0;
 while(simulatedProjectile.position.y >= 0) {
   simulatedProjectile = simulator.tick(world, simulatedProjectile);
 
-  console.log(JSON.stringify(simulatedProjectile));
-
   canvasX = Math.ceil(simulatedProjectile.position.x);
   canvasY = canvas.height - Math.ceil(simulatedProjectile.position.y);
 
