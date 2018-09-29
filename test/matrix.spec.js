@@ -6,6 +6,7 @@ const createMatrix = matrixUtils.createMatrix;
 const matrixMultiply = matrixUtils.matrixMultiply;
 const matrixMultiplySpecial = matrixUtils.matrixMultiplySpecial;
 const identityMatrix = matrixUtils.identityMatrix;
+const transpose = matrixUtils.transpose;
 
 describe("matrix utility functions", () => {
   it("createMatrix should accept a width and height parameters of 4 and return a 4 x 4 matrix", () => {
@@ -214,4 +215,60 @@ describe("matrix utility functions", () => {
     expect(fourByFourMatrix).deep.equal(productOfIdentityMatrixMultiplication);
   });
 
+  it('should transpose a matrix', () => {
+    let matrixA = createMatrix(4, 4);
+    matrixA[0][0] = 0;
+    matrixA[0][1] = 9;
+    matrixA[0][2] = 3;
+    matrixA[0][3] = 0;
+    matrixA[1][0] = 9;
+    matrixA[1][1] = 8;
+    matrixA[1][2] = 0;
+    matrixA[1][3] = 8;
+    matrixA[2][0] = 1;
+    matrixA[2][1] = 8;
+    matrixA[2][2] = 5;
+    matrixA[2][3] = 3;
+    matrixA[3][0] = 0;
+    matrixA[3][1] = 0;
+    matrixA[3][2] = 5;
+    matrixA[3][3] = 8;
+
+    let matrixATransposed = createMatrix(4, 4);
+    matrixATransposed[0][0] = 0;
+    matrixATransposed[0][1] = 9;
+    matrixATransposed[0][2] = 1;
+    matrixATransposed[0][3] = 0;
+    matrixATransposed[1][0] = 9;
+    matrixATransposed[1][1] = 8;
+    matrixATransposed[1][2] = 8;
+    matrixATransposed[1][3] = 0;
+    matrixATransposed[2][0] = 3;
+    matrixATransposed[2][1] = 0;
+    matrixATransposed[2][2] = 5;
+    matrixATransposed[2][3] = 5;
+    matrixATransposed[3][0] = 0;
+    matrixATransposed[3][1] = 8;
+    matrixATransposed[3][2] = 3;
+    matrixATransposed[3][3] = 8;
+
+    let transposed = transpose(matrixA);
+
+    expect(transposed[0][0]).to.equal(matrixATransposed[0][0]);
+    expect(transposed[0][1]).to.equal(matrixATransposed[0][1]);
+    expect(transposed[0][2]).to.equal(matrixATransposed[0][2]);
+    expect(transposed[0][3]).to.equal(matrixATransposed[0][3]);
+    expect(transposed[1][0]).to.equal(matrixATransposed[1][0]);
+    expect(transposed[1][1]).to.equal(matrixATransposed[1][1]);
+    expect(transposed[1][2]).to.equal(matrixATransposed[1][2]);
+    expect(transposed[1][3]).to.equal(matrixATransposed[1][3]);
+    expect(transposed[2][0]).to.equal(matrixATransposed[2][0]);
+    expect(transposed[2][1]).to.equal(matrixATransposed[2][1]);
+    expect(transposed[2][2]).to.equal(matrixATransposed[2][2]);
+    expect(transposed[2][3]).to.equal(matrixATransposed[2][3]);
+    expect(transposed[3][0]).to.equal(matrixATransposed[3][0]);
+    expect(transposed[3][1]).to.equal(matrixATransposed[3][1]);
+    expect(transposed[3][2]).to.equal(matrixATransposed[3][2]);
+    expect(transposed[3][3]).to.equal(matrixATransposed[3][3]);
+  });
 });

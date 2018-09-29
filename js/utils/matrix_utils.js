@@ -59,4 +59,22 @@ const identityMatrix = [
   [0, 0, 0, 1]
 ];
 
-module.exports = {createMatrix, matrixMultiply, matrixMultiplySpecial, identityMatrix};
+function transpose(matrix) {
+  let transposed = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0]
+  ];
+
+  for(let row = 0; row < 4; row++) {
+    // build the transposed matrix row by row
+    for(let column = 0; column < 4; column++) {
+      transposed[row][column] = matrix[column][row];
+    }
+  }
+
+  return transposed;
+}
+
+module.exports = {createMatrix, matrixMultiply, matrixMultiplySpecial, identityMatrix, transpose};
