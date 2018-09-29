@@ -68,7 +68,6 @@ function transpose(matrix) {
   ];
 
   for(let row = 0; row < 4; row++) {
-    // build the transposed matrix row by row
     for(let column = 0; column < 4; column++) {
       transposed[row][column] = matrix[column][row];
     }
@@ -77,4 +76,21 @@ function transpose(matrix) {
   return transposed;
 }
 
-module.exports = {createMatrix, matrixMultiply, matrixMultiplySpecial, identityMatrix, transpose};
+function determinant(matrix) {
+  return matrix[0][0] * matrix[1][1] - (matrix[1][0] * matrix[0][1]);
+}
+
+function submatrix(matrix, row, column) {
+  let size = matrix.length - 1
+  let submatrix = new Array(size);
+
+  for(let columns = 0; columns < size; columns++) {
+    for(let rows = 0; rows < size; rows++) {
+
+    }
+  }
+
+  return submatrix;
+}
+
+module.exports = {createMatrix, matrixMultiply, matrixMultiplySpecial, identityMatrix, transpose, determinant, submatrix};

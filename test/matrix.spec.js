@@ -7,6 +7,8 @@ const matrixMultiply = matrixUtils.matrixMultiply;
 const matrixMultiplySpecial = matrixUtils.matrixMultiplySpecial;
 const identityMatrix = matrixUtils.identityMatrix;
 const transpose = matrixUtils.transpose;
+const determinant = matrixUtils.determinant;
+const submatrix = matrixUtils.submatrix;
 
 describe("matrix utility functions", () => {
   it("createMatrix should accept a width and height parameters of 4 and return a 4 x 4 matrix", () => {
@@ -270,5 +272,106 @@ describe("matrix utility functions", () => {
     expect(transposed[3][1]).to.equal(matrixATransposed[3][1]);
     expect(transposed[3][2]).to.equal(matrixATransposed[3][2]);
     expect(transposed[3][3]).to.equal(matrixATransposed[3][3]);
+  });
+
+  it('should transpose an identity matrix', () => {
+    let transposedIdentity = transpose(identityMatrix);
+
+    expect(transposedIdentity[0][0]).to.equal(identityMatrix[0][0]);
+    expect(transposedIdentity[0][1]).to.equal(identityMatrix[0][1]);
+    expect(transposedIdentity[0][2]).to.equal(identityMatrix[0][2]);
+    expect(transposedIdentity[0][3]).to.equal(identityMatrix[0][3]);
+    expect(transposedIdentity[1][0]).to.equal(identityMatrix[1][0]);
+    expect(transposedIdentity[1][1]).to.equal(identityMatrix[1][1]);
+    expect(transposedIdentity[1][2]).to.equal(identityMatrix[1][2]);
+    expect(transposedIdentity[1][3]).to.equal(identityMatrix[1][3]);
+    expect(transposedIdentity[2][0]).to.equal(identityMatrix[2][0]);
+    expect(transposedIdentity[2][1]).to.equal(identityMatrix[2][1]);
+    expect(transposedIdentity[2][2]).to.equal(identityMatrix[2][2]);
+    expect(transposedIdentity[2][3]).to.equal(identityMatrix[2][3]);
+    expect(transposedIdentity[3][0]).to.equal(identityMatrix[3][0]);
+    expect(transposedIdentity[3][1]).to.equal(identityMatrix[3][1]);
+    expect(transposedIdentity[3][2]).to.equal(identityMatrix[3][2]);
+    expect(transposedIdentity[3][3]).to.equal(identityMatrix[3][3]);
+  });
+
+  it('should calculate the determinant of a 2 x 2 matrix and equal 17', () => {
+    let matrix = createMatrix(2, 2);
+
+    matrix[0][0] = 1;
+    matrix[0][1] = 5;
+    matrix[1][0] = -3;
+    matrix[1][1] = 2;
+
+    let matrixDeterminant = determinant(matrix);
+
+    expect(matrixDeterminant).to.equal(17);
+  });
+
+  it('should calculate the determinant of a 2 x 2 matrix and equal -12', () => {
+    let matrix = createMatrix(2, 2);
+
+    matrix[0][0] = -3;
+    matrix[0][1] = 1;
+    matrix[1][0] = -3;
+    matrix[1][1] = 5;
+
+    let matrixDeterminant = determinant(matrix);
+
+    expect(matrixDeterminant).to.equal(-12);
+  });
+
+  it('should create a submatrix of a 3 x 3 matrix', () => {
+    let matrix = createMatrix(3, 3);
+
+    matrix[0][0] = 1;
+    matrix[0][1] = 5;
+    matrix[0][2] = 0;
+    matrix[1][0] = -3;
+    matrix[1][1] = 2;
+    matrix[1][2] = 7;
+    matrix[2][0] = 0;
+    matrix[2][1] = 6;
+    matrix[2][2] = -3;
+
+    let submatrixOfMatrix = submatrix(matrix, 0, 2);
+
+    expect(submatrixOfMatrix[0][0]).to.equal(-3);
+    expect(submatrixOfMatrix[0][1]).to.equal(2);
+    expect(submatrixOfMatrix[1][0]).to.equal(0);
+    expect(submatrixOfMatrix[1][1]).to.equal(6);
+  });
+
+  it('should create a submatrix of a 4 x 4 matrix', () => {
+    let matrix = createMatrix(4, 4);
+
+    matrix[0][0] = -6;
+    matrix[0][1] = 1;
+    matrix[0][2] = 1;
+    matrix[0][3] = 6;
+    matrix[1][0] = -8;
+    matrix[1][1] = 5;
+    matrix[1][2] = 8;
+    matrix[1][3] = 6;
+    matrix[2][0] = -1;
+    matrix[2][1] = 0;
+    matrix[2][2] = 8;
+    matrix[2][3] = 2;
+    matrix[3][0] = -7;
+    matrix[3][1] = 1;
+    matrix[3][2] = -1;
+    matrix[3][3] = 1;
+
+    let submatrixOfMatrix = submatrix(matrix, 2, 1);
+
+    expect(submatrixOfMatrix[0][0]).to.equal(-6);
+    expect(submatrixOfMatrix[0][1]).to.equal(1);
+    expect(submatrixOfMatrix[0][2]).to.equal(6);
+    expect(submatrixOfMatrix[1][0]).to.equal(-8);
+    expect(submatrixOfMatrix[1][1]).to.equal(8);
+    expect(submatrixOfMatrix[1][2]).to.equal(6);
+    expect(submatrixOfMatrix[2][0]).to.equal(-7);
+    expect(submatrixOfMatrix[2][1]).to.equal(-1);
+    expect(submatrixOfMatrix[2][2]).to.equal(1);
   });
 });
