@@ -52,4 +52,11 @@ function buildMatrix(rows, columns) {
   return matrix;
 }
 
-module.exports = {createMatrix, matrixMultiply, matrixMultiplySpecial};
+const identityMatrix = [
+  [1, 0, 0, 0],
+  [0, 1, 0, 0],
+  [0, 0, 1, 0],
+  [0, 0, 0, 1]
+];
+
+module.exports = {createMatrix, matrixMultiply, matrixMultiplySpecial, identityMatrix};

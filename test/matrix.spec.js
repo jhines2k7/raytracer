@@ -5,6 +5,7 @@ const matrixUtils = require('../js/utils/matrix_utils');
 const createMatrix = matrixUtils.createMatrix;
 const matrixMultiply = matrixUtils.matrixMultiply;
 const matrixMultiplySpecial = matrixUtils.matrixMultiplySpecial;
+const identityMatrix = matrixUtils.identityMatrix;
 
 describe("matrix utility functions", () => {
   it("createMatrix should accept a width and height parameters of 4 and return a 4 x 4 matrix", () => {
@@ -187,4 +188,30 @@ describe("matrix utility functions", () => {
     expect(matrix[2]).to.equal(33);
     expect(matrix[3]).to.equal(1);
   });
+
+  it('multiply a matrix by the identity', () => {
+    let fourByFourMatrix = createMatrix(4, 4);
+
+    fourByFourMatrix[0][0] = 0;
+    fourByFourMatrix[0][1] = 1;
+    fourByFourMatrix[0][2] = 2;
+    fourByFourMatrix[0][3] = 4;
+    fourByFourMatrix[1][0] = 1;
+    fourByFourMatrix[1][1] = 2;
+    fourByFourMatrix[1][2] = 4;
+    fourByFourMatrix[1][3] = 8;
+    fourByFourMatrix[2][0] = 2;
+    fourByFourMatrix[2][1] = 4;
+    fourByFourMatrix[2][2] = 8;
+    fourByFourMatrix[2][3] = 16;
+    fourByFourMatrix[3][0] = 4;
+    fourByFourMatrix[3][1] = 8;
+    fourByFourMatrix[3][2] = 16;
+    fourByFourMatrix[3][3] = 32;
+
+    let productOfIdentityMatrixMultiplication = matrixMultiply(fourByFourMatrix, identityMatrix);
+
+    expect(fourByFourMatrix).deep.equal(productOfIdentityMatrixMultiplication);
+  });
+
 });
