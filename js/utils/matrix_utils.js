@@ -101,16 +101,12 @@ function submatrix(matrix, rowToExtract, colToExtract) {
         if(columnNum !== colToExtract && columnNum < matrix.length) {
           row[cols] = matrix[rowNum][columnNum];
           cols++;
-        } else {
-          continue;
         }
       }
 
       submatrix[rows] = row;
       rows++;
       cols = 0;
-    } else {
-      continue;
     }
   }
 
