@@ -10,6 +10,7 @@ const transpose = matrixUtils.transpose;
 const determinant = matrixUtils.determinant;
 const submatrix = matrixUtils.submatrix;
 const minor = matrixUtils.minor;
+const cofactor = matrixUtils.cofactor;
 
 describe("matrix utility functions", () => {
   it("createMatrix should accept a width and height parameters of 4 and return a 4 x 4 matrix", () => {
@@ -396,5 +397,53 @@ describe("matrix utility functions", () => {
     let minorA = minor(A, 1, 0);
 
     expect(determinantB).to.equal(minorA);
+  });
+
+  it('calculating the cofactor of a 3x3 matrix', () => {
+    let A = createMatrix(3, 3);
+
+    A[0][0] = 3;
+    A[0][1] = 5;
+    A[0][2] = 0;
+    A[1][0] = 2;
+    A[1][1] = -1;
+    A[1][2] = -7;
+    A[2][0] = 6;
+    A[2][1] = -1;
+    A[2][2] = 5;
+
+    let minorA = minor(A, 0, 0);
+    let cofactorA = cofactor(A, 0, 0);
+
+    expect(minorA).to.equal(cofactorA);
+
+    let minorB = minor(A, 1, 0);
+    let cofactorB = cofactor(A, 1, 0);
+
+    expect(minorB * -1).to.equal(cofactorB);
+  });
+
+  it('calculating the determinant of a 3x3 matrix', () => {
+    let A = createMatrix(3, 3);
+
+    A[0][0] = 1;
+    A[0][1] = 2;
+    A[0][2] = 6;
+    A[1][0] = -5;
+    A[1][1] = 8;
+    A[1][2] = -4;
+    A[2][0] = 2;
+    A[2][1] = 6;
+    A[2][2] = 4;
+
+    let cofactorA = cofactor(A, 0, 0);
+    let cofactorB = cofactor(A, 0, 1);
+    let cofactorC = cofactor(A, 0, 2);
+    let determinantA = determinant(A);
+
+    expect(cofactorA).to.equal(56);
+    expect(cofactorB).to.equal(12);
+    expect(cofactorC).to.equal(-46);
+    expect(determinantA).to.equal(-196);
   });
 });

@@ -111,6 +111,16 @@ function minor(matrix, rowToExtract, colToExtract) {
   return determinant(A);
 }
 
+function cofactor(matrix, rowToExtract, colToExtract) {
+  let A = minor(matrix, rowToExtract, colToExtract);
+
+  if(rowToExtract + colToExtract % 2 !== 0) {
+    return A * -1
+  } else {
+    return A;
+  }
+}
+
 module.exports = {
   createMatrix,
   matrixMultiply,
@@ -119,5 +129,6 @@ module.exports = {
   transpose,
   determinant,
   submatrix,
-  minor
+  minor,
+  cofactor
 };
