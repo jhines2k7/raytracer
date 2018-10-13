@@ -105,4 +105,19 @@ function submatrix(matrix, rowToExtract, colToExtract) {
   return submatrix;
 }
 
-module.exports = {createMatrix, matrixMultiply, matrixMultiplySpecial, identityMatrix, transpose, determinant, submatrix};
+function minor(matrix, rowToExtract, colToExtract) {
+  let A = submatrix(matrix, rowToExtract, colToExtract);
+
+  return determinant(A);
+}
+
+module.exports = {
+  createMatrix,
+  matrixMultiply,
+  matrixMultiplySpecial,
+  identityMatrix,
+  transpose,
+  determinant,
+  submatrix,
+  minor
+};

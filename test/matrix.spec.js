@@ -9,6 +9,7 @@ const identityMatrix = matrixUtils.identityMatrix;
 const transpose = matrixUtils.transpose;
 const determinant = matrixUtils.determinant;
 const submatrix = matrixUtils.submatrix;
+const minor = matrixUtils.minor;
 
 describe("matrix utility functions", () => {
   it("createMatrix should accept a width and height parameters of 4 and return a 4 x 4 matrix", () => {
@@ -373,5 +374,27 @@ describe("matrix utility functions", () => {
     expect(submatrixOfMatrix[2][0]).to.equal(-7);
     expect(submatrixOfMatrix[2][1]).to.equal(-1);
     expect(submatrixOfMatrix[2][2]).to.equal(1);
+  });
+
+  it('calculating the minor of a 3x3 matrix', () => {
+    let A = createMatrix(3, 3);
+
+    A[0][0] = 3;
+    A[0][1] = 5;
+    A[0][2] = 0;
+    A[1][0] = 2;
+    A[1][1] = -1;
+    A[1][2] = -7;
+    A[2][0] = 6;
+    A[2][1] = -1;
+    A[2][2] = 5;
+
+    let B  = submatrix(A, 1, 0);
+
+    let determinantB = determinant(B);
+
+    let minorA = minor(A, 1, 0);
+
+    expect(determinantB).to.equal(minorA);
   });
 });
