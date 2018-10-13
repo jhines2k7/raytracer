@@ -321,7 +321,7 @@ describe("matrix utility functions", () => {
     expect(matrixDeterminant).to.equal(-12);
   });
 
-  it('should create a submatrix of a 3 x 3 matrix', () => {
+  it('should create a 2 X 2 submatrix from a 3 x 3 matrix', () => {
     let matrix = createMatrix(3, 3);
 
     matrix[0][0] = 1;
@@ -342,7 +342,7 @@ describe("matrix utility functions", () => {
     expect(submatrixOfMatrix[1][1]).to.equal(6);
   });
 
-  it('should create a submatrix of a 4 x 4 matrix', () => {
+  it('should create a 3 x 3 submatrix from a 4 x 4 matrix', () => {
     let matrix = createMatrix(4, 4);
 
     matrix[0][0] = -6;

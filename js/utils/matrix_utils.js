@@ -80,13 +80,37 @@ function determinant(matrix) {
   return matrix[0][0] * matrix[1][1] - (matrix[1][0] * matrix[0][1]);
 }
 
-function submatrix(matrix, row, column) {
-  let size = matrix.length - 1
-  let submatrix = new Array(size);
+/*
+  submatrix = [
+    [],
+    []
+  ]
 
-  for(let columns = 0; columns < size; columns++) {
-    for(let rows = 0; rows < size; rows++) {
+ */
 
+function submatrix(matrix, rowToExtract, colToExtract) {
+  let submatrix = new Array(matrix.length - 1);
+  let submatrixSize = submatrix.length;
+  let rows = 0, cols = 0;
+
+  for(let rowNum = 0; rowNum < matrix.length; rowNum++) {
+    if(rowNum !== rowToExtract) {
+      let row = new Array(submatrixSize);
+
+      for(let columnNum = 0; columnNum; columnNum++) {
+        if(columnNum !== colToExtract && columnNum < matrix.length) {
+          row[cols] = matrix[rowNum][columnNum];
+          cols++;
+        } else {
+          continue;
+        }
+      }
+
+      submatrix[rows] = row;
+      rows++;
+      cols = 0;
+    } else {
+      continue;
     }
   }
 
