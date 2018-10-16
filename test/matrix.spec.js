@@ -447,4 +447,37 @@ describe("matrix utility functions", () => {
     expect(cofactorC).to.equal(-46);
     expect(determinantA).to.equal(-196);
   });
+
+  it('calculating the determinant of a 4x4 matrix', () => {
+    let A = createMatrix(4, 4);
+
+    A[0][0] = -2;
+    A[0][1] = -8;
+    A[0][2] = 3;
+    A[0][3] = 5;
+    A[1][0] = -3;
+    A[1][1] = 1;
+    A[1][2] = 7;
+    A[1][3] = 3;
+    A[2][0] = 1;
+    A[2][1] = 2;
+    A[2][2] = -9;
+    A[2][3] = 6;
+    A[3][0] = -6;
+    A[3][1] = 7;
+    A[3][2] = 7;
+    A[3][3] = -9;
+
+    let cofactorA = cofactor(A, 0, 0);
+    let cofactorB = cofactor(A, 0, 1);
+    let cofactorC = cofactor(A, 0, 2);
+    let cofactorD = cofactor(A, 0, 3);
+    let determinantA = determinant(A);
+
+    expect(cofactorA).to.equal(690);
+    expect(cofactorB).to.equal(447);
+    expect(cofactorC).to.equal(210);
+    expect(cofactorD).to.equal(51);
+    expect(determinantA).to.equal(-4071);
+  });
 });
