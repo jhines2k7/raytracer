@@ -76,7 +76,7 @@ function transpose(matrix) {
   return transposed;
 }
 
-function determinant(matrix) {
+function determinant2x2(matrix) {
   return matrix[0][0] * matrix[1][1] - (matrix[1][0] * matrix[0][1]);
 }
 
@@ -108,7 +108,7 @@ function submatrix(matrix, rowToExtract, colToExtract) {
 function minor(matrix, rowToExtract, colToExtract) {
   let A = submatrix(matrix, rowToExtract, colToExtract);
 
-  return determinant(A);
+  return determinant2x2(A);
 }
 
 function cofactor(matrix, rowToExtract, colToExtract) {
@@ -121,14 +121,25 @@ function cofactor(matrix, rowToExtract, colToExtract) {
   }
 }
 
+function determinant(matrix) {
+  let matrixDeterminant = 0;
+
+  for(let col = 0; col < matrix.length; col++) {
+    matrixDeterminant += matrix[0][col] * cofactor(matrix, 0, col);
+  }
+
+  return matrixDeterminant;
+}
+
 module.exports = {
   createMatrix,
   matrixMultiply,
   matrixMultiplySpecial,
   identityMatrix,
   transpose,
-  determinant,
+  determinant2x2,
   submatrix,
   minor,
-  cofactor
+  cofactor,
+  determinant
 };

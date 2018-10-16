@@ -7,10 +7,11 @@ const matrixMultiply = matrixUtils.matrixMultiply;
 const matrixMultiplySpecial = matrixUtils.matrixMultiplySpecial;
 const identityMatrix = matrixUtils.identityMatrix;
 const transpose = matrixUtils.transpose;
-const determinant = matrixUtils.determinant;
+const determinant2x2 = matrixUtils.determinant2x2;
 const submatrix = matrixUtils.submatrix;
 const minor = matrixUtils.minor;
 const cofactor = matrixUtils.cofactor;
+const determinant = matrixUtils.determinant;
 
 describe("matrix utility functions", () => {
   it("createMatrix should accept a width and height parameters of 4 and return a 4 x 4 matrix", () => {
@@ -305,7 +306,7 @@ describe("matrix utility functions", () => {
     matrix[1][0] = -3;
     matrix[1][1] = 2;
 
-    let matrixDeterminant = determinant(matrix);
+    let matrixDeterminant = determinant2x2(matrix);
 
     expect(matrixDeterminant).to.equal(17);
   });
@@ -318,7 +319,7 @@ describe("matrix utility functions", () => {
     matrix[1][0] = -3;
     matrix[1][1] = 5;
 
-    let matrixDeterminant = determinant(matrix);
+    let matrixDeterminant = determinant2x2(matrix);
 
     expect(matrixDeterminant).to.equal(-12);
   });
@@ -392,7 +393,7 @@ describe("matrix utility functions", () => {
 
     let B  = submatrix(A, 1, 0);
 
-    let determinantB = determinant(B);
+    let determinantB = determinant2x2(B);
 
     let minorA = minor(A, 1, 0);
 
