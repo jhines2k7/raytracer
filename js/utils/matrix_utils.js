@@ -112,7 +112,13 @@ function minor(matrix, rowToExtract, colToExtract) {
 }
 
 function cofactor(matrix, rowToExtract, colToExtract) {
-  let A = minor(matrix, rowToExtract, colToExtract);
+  let A;
+
+  if(matrix.length > 3) {
+    A = determinant(submatrix(matrix, rowToExtract, colToExtract));
+  } else {
+    A = minor(matrix, rowToExtract, colToExtract);
+  }
 
   if(rowToExtract + colToExtract % 2 !== 0) {
     return A * -1
