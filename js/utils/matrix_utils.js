@@ -137,6 +137,35 @@ function determinant(matrix) {
   return matrixDeterminant;
 }
 
+function isInvertible(matrix) {
+  return determinant(matrix) !== 0;
+}
+
+function inverse(matrix) {
+  let inverseMatrix;
+
+  let cofactorMatrix = matrixOfCofactors(matrix);
+
+  return inverseMatrix;
+}
+
+function matrixOfCofactors(matrix) {
+  let cofactorMatrix = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0]
+  ];
+
+  for(let row = 0; row < matrix.length; row++) {
+    for(let col = 0; col < matrix.length; col++) {
+      cofactorMatrix[row][col] = cofactor(matrix, row, col);
+    }
+  }
+
+  return cofactorMatrix;
+}
+
 module.exports = {
   createMatrix,
   matrixMultiply,
@@ -147,5 +176,7 @@ module.exports = {
   submatrix,
   minor,
   cofactor,
-  determinant
+  determinant,
+  isInvertible,
+  inverse
 };

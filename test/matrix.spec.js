@@ -12,6 +12,9 @@ const submatrix = matrixUtils.submatrix;
 const minor = matrixUtils.minor;
 const cofactor = matrixUtils.cofactor;
 const determinant = matrixUtils.determinant;
+const isInvertible = matrixUtils.isInvertible;
+const inverse = matrixUtils.inverse;
+const isEqual = require('../js/utils/is_equal');
 
 describe("matrix utility functions", () => {
   it("createMatrix should accept a width and height parameters of 4 and return a 4 x 4 matrix", () => {
@@ -479,5 +482,102 @@ describe("matrix utility functions", () => {
     expect(cofactorC).to.equal(210);
     expect(cofactorD).to.equal(51);
     expect(determinantA).to.equal(-4071);
+  });
+
+  it('testing an invertible matrix for invertability', () => {
+    let A = createMatrix(4, 4);
+
+    A[0][0] = 6;
+    A[0][1] = 4;
+    A[0][2] = 4;
+    A[0][3] = 4;
+    A[1][0] = 5;
+    A[1][1] = 5;
+    A[1][2] = 7;
+    A[1][3] = 6;
+    A[2][0] = 4;
+    A[2][1] = -9;
+    A[2][2] = 3;
+    A[2][3] = -7;
+    A[3][0] = 9;
+    A[3][1] = 1;
+    A[3][2] = 7;
+    A[3][3] = -6;
+
+    expect(determinant(A)).to.equal(-2120);
+    expect(isInvertible(A)).to.equal(true);
+  });
+
+  it('testing a non-invertible matrix for invertibility', () => {
+    let A = createMatrix(4, 4);
+
+    A[0][0] = -4;
+    A[0][1] = 2;
+    A[0][2] = -2;
+    A[0][3] = -3;
+    A[1][0] = 9;
+    A[1][1] = 6;
+    A[1][2] = 2;
+    A[1][3] = 6;
+    A[2][0] = 0;
+    A[2][1] = -5;
+    A[2][2] = 1;
+    A[2][3] = -5;
+    A[3][0] = 0;
+    A[3][1] = 0;
+    A[3][2] = 0;
+    A[3][3] = 0;
+
+    expect(determinant(A)).to.equal(0);
+    expect(isInvertible(A)).to.equal(false);
+  });
+
+  it('calculating the inverse of a matrix', () => {
+    let A = createMatrix(4, 4);
+
+    A[0][0] = -5;
+    A[0][1] = 2;
+    A[0][2] = 6;
+    A[0][3] = -8;
+    A[1][0] = 1;
+    A[1][1] = -5;
+    A[1][2] = 1;
+    A[1][3] = 8;
+    A[2][0] = 7;
+    A[2][1] = 7;
+    A[2][2] = -6;
+    A[2][3] = -7;
+    A[3][0] = 1;
+    A[3][1] = -3;
+    A[3][2] = 7;
+    A[3][3] = 4;
+
+    let inverseA = inverse(A);
+    let determinantA = determinant(A);
+    let cofactorA23 = cofactor(A, 2, 3);
+    let cofactorA32 = cofactor(A, 3, 2);
+
+    expect(determinantA).to.equal(532);
+    expect(cofactorA23).to.equal(-160);
+    expect(inverseA[3][2]).to.equal(-160/532);
+    expect(cofactorA32).to.equal(105);
+    expect(inverseA[2][3]).to.equal(105/532);
+
+    expect(isEqual(inverseA[0][0], 0.21805)).to.equal(true);
+    expect(isEqual(inverseA[0][1], 0.45113)).to.equal(true);
+    expect(isEqual(inverseA[0][2], 0.24060)).to.equal(true);
+    expect(isEqual(inverseA[0][3], -0.04511)).to.equal(true);
+    expect(isEqual(inverseA[1][0], -0.80827)).to.equal(true);
+    expect(isEqual(inverseA[1][1], -1.45677)).to.equal(true);
+    expect(isEqual(inverseA[1][2], -0.44361)).to.equal(true);
+    expect(isEqual(inverseA[1][3], 0.52068)).to.equal(true);
+    expect(isEqual(inverseA[2][0], -0.07895)).to.equal(true);
+    expect(isEqual(inverseA[2][1], -0.22368)).to.equal(true);
+    expect(isEqual(inverseA[2][2], -0.05263)).to.equal(true);
+    expect(isEqual(inverseA[2][3], 0.19737)).to.equal(true);
+    expect(isEqual(inverseA[3][0], -0.52256)).to.equal(true);
+    expect(isEqual(inverseA[3][1], -0.81391)).to.equal(true);
+    expect(isEqual(inverseA[3][2], -0.30075)).to.equal(true);
+    expect(isEqual(inverseA[3][3], 0.30639)).to.equal(true);
   });
 });
