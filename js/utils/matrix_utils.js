@@ -120,7 +120,7 @@ function cofactor(matrix, rowToExtract, colToExtract) {
     A = minor(matrix, rowToExtract, colToExtract);
   }
 
-  if(rowToExtract + colToExtract % 2 !== 0) {
+  if((rowToExtract + colToExtract) % 2 !== 0) {
     return A * -1
   } else {
     return A;
@@ -142,11 +142,12 @@ function isInvertible(matrix) {
 }
 
 function inverse(matrix) {
-  let inverseMatrix;
-
   let cofactorMatrix = matrixOfCofactors(matrix);
+  let transposedCofactorMatrix = transpose(cofactorMatrix);
 
-  return inverseMatrix;
+  let matrixDeterminant = determinant(matrix);
+
+  return divideCofactorMatrix(transposedCofactorMatrix, matrixDeterminant);
 }
 
 function matrixOfCofactors(matrix) {
@@ -164,6 +165,23 @@ function matrixOfCofactors(matrix) {
   }
 
   return cofactorMatrix;
+}
+
+function divideCofactorMatrix(matrix, determinant) {
+  let inverted = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0]
+  ];
+
+  for(let row = 0; row < matrix.length; row++) {
+    for(let col = 0; col < matrix.length; col++) {
+      inverted[row][col] = matrix[row][col] / determinant;
+    }
+  }
+
+  return inverted;
 }
 
 module.exports = {
