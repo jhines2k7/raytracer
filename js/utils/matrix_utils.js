@@ -60,12 +60,7 @@ const identityMatrix = [
 ];
 
 function transpose(matrix) {
-  let transposed = [
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0]
-  ];
+  let transposed = createMatrix(4, 4);
 
   for(let row = 0; row < 4; row++) {
     for(let column = 0; column < 4; column++) {
@@ -151,12 +146,7 @@ function inverse(matrix) {
 }
 
 function matrixOfCofactors(matrix) {
-  let cofactorMatrix = [
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0]
-  ];
+  let cofactorMatrix = buildMatrix(4, 4);
 
   for(let row = 0; row < matrix.length; row++) {
     for(let col = 0; col < matrix.length; col++) {
@@ -168,12 +158,7 @@ function matrixOfCofactors(matrix) {
 }
 
 function divideCofactorMatrix(matrix, determinant) {
-  let inverted = [
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0]
-  ];
+  let inverted = buildMatrix(4, 4);
 
   for(let row = 0; row < matrix.length; row++) {
     for(let col = 0; col < matrix.length; col++) {

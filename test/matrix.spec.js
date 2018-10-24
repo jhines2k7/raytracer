@@ -580,4 +580,84 @@ describe("matrix utility functions", () => {
     expect(isEqual(inverseA[3][2], -0.30075)).to.equal(true);
     expect(isEqual(inverseA[3][3], 0.30639)).to.equal(true);
   });
+
+  it('calculating the inverse of another matrix', () => {
+    let A = createMatrix(4, 4);
+
+    A[0][0] = 8;
+    A[0][1] = -5;
+    A[0][2] = 9;
+    A[0][3] = 2;
+    A[1][0] = 7;
+    A[1][1] = 5;
+    A[1][2] = 6;
+    A[1][3] = 1;
+    A[2][0] = -6;
+    A[2][1] = 0;
+    A[2][2] = 9;
+    A[2][3] = 6;
+    A[3][0] = -3;
+    A[3][1] = 0;
+    A[3][2] = -9;
+    A[3][3] = -4;
+
+    let inverseA = inverse(A);
+
+    expect(isEqual(inverseA[0][0], -0.15385)).to.equal(true);
+    expect(isEqual(inverseA[0][1], -0.15385)).to.equal(true);
+    expect(isEqual(inverseA[0][2], -0.28205)).to.equal(true);
+    expect(isEqual(inverseA[0][3], -0.53846)).to.equal(true);
+    expect(isEqual(inverseA[1][0], -0.07692)).to.equal(true);
+    expect(isEqual(inverseA[1][1], 0.12308)).to.equal(true);
+    expect(isEqual(inverseA[1][2], 0.02564)).to.equal(true);
+    expect(isEqual(inverseA[1][3], 0.03077)).to.equal(true);
+    expect(isEqual(inverseA[2][0], 0.35897)).to.equal(true);
+    expect(isEqual(inverseA[2][1], 0.35897)).to.equal(true);
+    expect(isEqual(inverseA[2][2], 0.43590)).to.equal(true);
+    expect(isEqual(inverseA[2][3], 0.92308)).to.equal(true);
+    expect(isEqual(inverseA[3][0], -0.69231)).to.equal(true);
+    expect(isEqual(inverseA[3][1], -0.69231)).to.equal(true);
+    expect(isEqual(inverseA[3][2], -0.76923)).to.equal(true);
+    expect(isEqual(inverseA[3][3], -1.92308)).to.equal(true);
+  });
+
+  it('calculating the inverse of a third matrix', () => {
+    let A = createMatrix(4, 4);
+
+    A[0][0] = 9;
+    A[0][1] = 3;
+    A[0][2] = 0;
+    A[0][3] = 9;
+    A[1][0] = -5;
+    A[1][1] = -2;
+    A[1][2] = -6;
+    A[1][3] = -3;
+    A[2][0] = -4;
+    A[2][1] = 9;
+    A[2][2] = 6;
+    A[2][3] = 4;
+    A[3][0] = -7;
+    A[3][1] = 6;
+    A[3][2] = 6;
+    A[3][3] = 2;
+
+    let inverseA = inverse(A);
+
+    expect(isEqual(inverseA[0][0], -0.04074)).to.equal(true);
+    expect(isEqual(inverseA[0][1], -0.07778)).to.equal(true);
+    expect(isEqual(inverseA[0][2], 0.14444)).to.equal(true);
+    expect(isEqual(inverseA[0][3], -0.22222)).to.equal(true);
+    expect(isEqual(inverseA[1][0], -0.07778)).to.equal(true);
+    expect(isEqual(inverseA[1][1], 0.03333)).to.equal(true);
+    expect(isEqual(inverseA[1][2], 0.36667)).to.equal(true);
+    expect(isEqual(inverseA[1][3], -0.33333)).to.equal(true);
+    expect(isEqual(inverseA[2][0], -0.02901)).to.equal(true);
+    expect(isEqual(inverseA[2][1], -0.14630)).to.equal(true);
+    expect(isEqual(inverseA[2][2], -0.10926)).to.equal(true);
+    expect(isEqual(inverseA[2][3], 0.12963)).to.equal(true);
+    expect(isEqual(inverseA[3][0], 0.17778)).to.equal(true);
+    expect(isEqual(inverseA[3][1], 0.06667)).to.equal(true);
+    expect(isEqual(inverseA[3][2], -0.26667)).to.equal(true);
+    expect(isEqual(inverseA[3][3], 0.33333)).to.equal(true);
+  });
 });
