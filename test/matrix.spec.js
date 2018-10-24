@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const matrixUtils = require('../js/utils/matrix_utils');
 const createMatrix = matrixUtils.createMatrix;
 const matrixMultiply = matrixUtils.matrixMultiply;
-const matrixMultiplySpecial = matrixUtils.matrixMultiplySpecial;
+const matrixVectorMultiply = matrixUtils.matrixVectorMultiply;
 const identityMatrix = matrixUtils.identityMatrix;
 const transpose = matrixUtils.transpose;
 const determinant2x2 = matrixUtils.determinant2x2;
@@ -162,12 +162,12 @@ describe("matrix utility functions", () => {
     expect(matrix[3][3]).to.equal(376);
   });
 
-  it("matrixMultiplySpecial accepts an array and a 4 x 4 matrix and returns an array of length 4", () => {
+  it("matrixVectorMultiply accepts an array and a 4 x 4 matrix and returns an array of length 4", () => {
     let fourByFourMatrix = createMatrix(4, 4);
 
-    let matrix = matrixMultiplySpecial(new Array(4), fourByFourMatrix);
+    let resultMatrix = matrixVectorMultiply(new Array(4), fourByFourMatrix);
 
-    expect(matrix.length = 4)
+    expect(resultMatrix.length = 4)
   });
 
   it("matrixMultiplySpecial accepts an array and a 4 x 4 matrix and returns an array of length 4", () => {
@@ -190,7 +190,7 @@ describe("matrix utility functions", () => {
     fourByFourMatrix[3][2] = 0;
     fourByFourMatrix[3][3] = 1;
 
-    let matrix = matrixMultiplySpecial([1, 2, 3, 1], fourByFourMatrix);
+    let matrix = matrixVectorMultiply([1, 2, 3, 1], fourByFourMatrix);
 
     expect(matrix[0]).to.equal(18);
     expect(matrix[1]).to.equal(24);

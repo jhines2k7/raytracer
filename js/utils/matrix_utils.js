@@ -19,21 +19,21 @@ function matrixMultiply(matrixA, matrixB) {
   return matrix;
 }
 
-function matrixMultiplySpecial(oneRowMatrix, fourByFourMatrix) {
-  let matrix = [0, 0, 0, 0];
+function matrixVectorMultiply(vector, matrix) {
+  let resultVector = [0, 0, 0, 0];
   let columnSum = 0;
 
   for(let row = 0; row < 4; row++) {
     for(let column = 0; column < 4; column++) {
-      columnSum += fourByFourMatrix[row][column] * oneRowMatrix[column];
+      columnSum += matrix[row][column] * vector[column];
     }
 
-    matrix[row] = columnSum;
+    resultVector[row] = columnSum;
 
     columnSum = 0;
   }
 
-  return matrix;
+  return resultVector;
 }
 
 function buildMatrix(rows, columns) {
@@ -172,7 +172,7 @@ function divideCofactorMatrix(matrix, determinant) {
 module.exports = {
   createMatrix,
   matrixMultiply,
-  matrixMultiplySpecial,
+  matrixVectorMultiply,
   identityMatrix,
   transpose,
   determinant2x2,
