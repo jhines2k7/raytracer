@@ -12,6 +12,24 @@ function translation(x, y, z) {
   ]
 }
 
+function scaling(x, y, z) {
+  return [
+    [x, 0, 0, 0],
+    [0, y, 0, 0],
+    [0, 0, z, 0],
+    [0, 0, 0, 1]
+  ]
+}
+
+function rotationX(radians) {
+  return [
+    [1,         0,                0,                0],
+    [0, Math.cos(radians), Math.sin(radians) * -1,  0],
+    [0, Math.sin(radians), Math.cos(radians),       0],
+    [0,         0,                0,                1]
+  ]
+}
+
 function transform(matrix, point) {
   let result = matrixVectorMultiply([point.x, point.y, point.z, point.w], matrix);
 
@@ -20,5 +38,7 @@ function transform(matrix, point) {
 
 module.exports = {
   translation,
-  transform
+  transform,
+  scaling,
+  rotationX
 };
