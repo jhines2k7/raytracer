@@ -30,6 +30,33 @@ function rotationX(radians) {
   ]
 }
 
+function rotationY(radians) {
+  return [
+    [Math.cos(radians),       0, Math.sin(radians), 0],
+    [       0,                1,        0,          0],
+    [Math.sin(radians) * -1,  0, Math.cos(radians), 0],
+    [       0,                0,        0,          1]
+  ]
+}
+
+function rotationZ(radians) {
+  return [
+    [Math.cos(radians),  Math.sin(radians) * -1,  0, 0],
+    [Math.sin(radians),  Math.cos(radians),       0, 0],
+    [       0,                  0,                1, 0],
+    [       0,                  0,                0, 1]
+  ]
+}
+
+function shearing(proportions) {
+  return [
+    [1, proportions.xy, proportions.xz, 0],
+    [proportions.yx, 1, proportions.yz, 0],
+    [proportions.zx, proportions.zy, 1, 0],
+    [     0,              0,         0, 1]
+  ]
+}
+
 function transform(matrix, point) {
   let result = matrixVectorMultiply([point.x, point.y, point.z, point.w], matrix);
 
@@ -40,5 +67,8 @@ module.exports = {
   translation,
   transform,
   scaling,
-  rotationX
+  rotationX,
+  rotationY,
+  rotationZ,
+  shearing
 };
