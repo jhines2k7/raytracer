@@ -10,6 +10,7 @@ const rotationY = transformations.rotationY;
 const rotationZ = transformations.rotationZ;
 const shearing = transformations.shearing;
 const inverse = require('../js/utils/matrix_utils').inverse;
+const matrixMultiply = require('../js/utils/matrix_utils').matrixMultiply;
 const Point = require('../js/point');
 const Vector = require('../js/vector');
 const isEqual = require('../js/utils/is_equal');
@@ -278,5 +279,44 @@ describe('Matrix transformations', () => {
     expect(shearedZInProportionToY.x).to.equal(2);
     expect(shearedZInProportionToY.y).to.equal(3);
     expect(shearedZInProportionToY.z).to.equal(7);
+  });
+
+  it('individual transformations are applied in sequence', () => {
+    let p = new Point(1, 0, 1);
+
+    let rotationMatrix = rotationX(Math.PI / 2);
+    let scalingMatrix = scaling(5, 5, 5);
+    let translationMatrix = translation(10, 5, 7);
+
+    let p2 = transform(rotationMatrix, p);
+    expect(p2.x).to.equal(1);
+    expect(p2.y).to.equal(-1);
+    expect(isEqual(p2.z, 0)).to.equal(true);
+
+    let p3 = transform(scalingMatrix, p2);
+    expect(p3.x).to.equal(5);
+    expect(p3.y).to.equal(-5);
+    expect(isEqual(p3.z, 0)).to.equal(true);
+
+    let p4 = transform(translationMatrix, p3);
+    expect(p4.x).to.equal(15);
+    expect(p4.y).to.equal(0);
+    expect(p4.z).to.equal(7);
+  });
+
+  it('chained transformations must be applied in reverse order', () => {
+    let p = new Point(1, 0, 1);
+
+    let rotationMatrix = rotationX(Math.PI / 2);
+    let scalingMatrix = scaling(5, 5, 5);
+    let translationMatrix = translation(10, 5, 7);
+
+    let chainedTransformations = matrixMultiply(matrixMultiply(translationMatrix, scalingMatrix), rotationMatrix);
+
+    let transformed = transform(chainedTransformations, p);
+
+    expect(transformed.x).to.equal(15);
+    expect(transformed.y).to.equal(0);
+    expect(transformed.z).to.equal(7);
   });
 });
