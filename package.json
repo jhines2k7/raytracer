@@ -8,7 +8,9 @@
     "debugTest": "mocha %NODE_DEBUG_OPTION% test/**/**.spec.js",
     "startProjectileSim": "node js/projectile/app.js",
     "debugStartProjectileSim": "node %NODE_DEBUG_OPTION% js/projectile/app.js",
-    "debugPuttingItTogetherChpt3": "node %NODE_DEBUG_OPTION% js/putting_it_together/chapter3.js"
+    "debugPuttingItTogetherChpt3": "node %NODE_DEBUG_OPTION% js/putting_it_together/chapter3.js",
+    "debugPuttingItTogetherChapt4": "node %NODE_DEBUG_OPTION% js/putting_it_together/chapter4.js",
+    "puttingItTogetherChapt4": "node js/putting_it_together/chapter4.js"
   },
   "keywords": [],
   "author": "",

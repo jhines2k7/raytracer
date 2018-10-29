@@ -8,8 +8,9 @@ const Canvas = require('../canvas');
 const transformations = require('../utils/transformations');
 const translation = transformations.translation;
 const rotationZ = transformations.rotationZ;
+const scaling = transformations.scaling;
 const transform = transformations.transform;
-const matrixMultiply = require('../utils/matrix_utils').matrixMultiply();
+const matrixMultiply = require('../utils/matrix_utils').matrixMultiply;
 
 let canvas = new Canvas(900, 900, new Color(0, 0, 0));
 
@@ -19,29 +20,50 @@ let canvas = new Canvas(900, 900, new Color(0, 0, 0));
 * top(449, 50), bottom(449, 849), left(50, 449), right(849, 449),
 */
 
-const NUM_POINTS = 4;
+const ROTATIONS = [
+  0,
+  Math.PI/6,
+  Math.PI/3,
+  Math.PI/2,
+  (2*Math.PI)/3,
+  (5*Math.PI)/6,
+  Math.PI,
+  (7*Math.PI)/6,
+  (4*Math.PI)/3,
+  (3*Math.PI)/2,
+  (5*Math.PI)/3,
+  (11*Math.PI)/6,
+];
+
 const WHITE = new Color(1, 1, 1);
 
-for(let i = 0; i <= NUM_POINTS; i++) {
-  // start at the middle of the canvas
-  let point = new Point(canvas.width / 2, canvas.height / 2, 0);
-
-  // translate
-  let translationMatrix = translation(canvas.width - 50, 0, 0);
+for(let i = 0; i < ROTATIONS.length; i++) {
+  // align our clock face along the y-axis (0, 1, 0)
+  let point = new Point(0, 1, 0);
 
   // rotate
-  let rotationMatrix = rotationZ(i * Math.PI);
+  let rotationMatrix = rotationZ(ROTATIONS[i]);
 
-  let chainedTransformations = matrixMultiply(rotationMatrix, translationMatrix);
+  // scale
+  let scalingMatrix = scaling(canvas.width * 3/8, canvas.width * 3/8, 0);
+
+  // translate
+  let translationMatrix = translation(canvas.width / 2, canvas.height / 2, 0);
+
+  // chain
+  let chainedTransformations = matrixMultiply(matrixMultiply(translationMatrix, scalingMatrix), rotationMatrix);
 
   // transform
   let transformed = transform(chainedTransformations, point);
 
-  canvas.writePixel(transformed.x, transformed.y, WHITE);
-  canvas.writePixel(transformed.x - 1, transformed.y, WHITE);
-  canvas.writePixel(transformed.x + 1, transformed.y, WHITE);
-  canvas.writePixel(transformed.x, transformed.y - 1, WHITE);
-  canvas.writePixel(transformed.x, transformed.y + 1, WHITE);
+  let X = Math.abs(Math.ceil(transformed.x));
+  let Y = Math.abs(Math.ceil(transformed.y));
+
+  canvas.writePixel(X, Y, WHITE);
+  canvas.writePixel(X - 1, Y, WHITE);
+  canvas.writePixel(X + 1, Y, WHITE);
+  canvas.writePixel(X, Y - 1, WHITE);
+  canvas.writePixel(X, Y + 1, WHITE);
 }
 
 let FILE_PATH = './';
