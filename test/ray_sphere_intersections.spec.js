@@ -6,6 +6,7 @@ const Vector = require('../js/vector');
 const Ray = require('../js/ray');
 const intersectionUtils = require('../js/utils/intersection_utils');
 const position = intersectionUtils.position;
+const Sphere = require('../js/sphere');
 
 describe('Ray and sphere intersections', () => {
   it('creating and querying a ray', () => {
@@ -50,7 +51,13 @@ describe('Ray and sphere intersections', () => {
   it('a ray intersects a sphere at two points', () => {
     let ray = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
 
+    let sphere = new Sphere();
 
+    let intersections = intersects(sphere, ray);
+
+    expect(intersections.length).to.equal(2);
+    expect(intersections[0]).to.equal(4);
+    expect(intersections[1]).to.equal(6);
 
   });
 });
