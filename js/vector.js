@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 module.exports = class Vector {
   constructor(x, y, z) {
