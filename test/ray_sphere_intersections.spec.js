@@ -6,7 +6,8 @@ const Vector = require('../js/vector');
 const Ray = require('../js/ray');
 const intersectionUtils = require('../js/utils/intersection_utils');
 const position = intersectionUtils.position;
-const intersects = intersectionUtils.intersects;
+const intersect = intersectionUtils.intersect;
+const intersections = intersectionUtils.intersections;
 const Sphere = require('../js/sphere');
 const Intersection = require('../js/intersection');
 
@@ -55,11 +56,11 @@ describe('Ray and sphere intersections', () => {
 
     let sphere = new Sphere();
 
-    let intersections = intersects(sphere, ray);
+    let intersections = intersect(sphere, ray);
 
     expect(intersections.length).to.equal(2);
-    expect(intersections[0]).to.equal(4);
-    expect(intersections[1]).to.equal(6);
+    expect(intersections[0].timeValueOfIntersection).to.equal(4);
+    expect(intersections[1].timeValueOfIntersection).to.equal(6);
   });
 
   it('a ray intersects a sphere at a tangent', () => {
@@ -67,11 +68,11 @@ describe('Ray and sphere intersections', () => {
 
     let sphere = new Sphere();
 
-    let intersections = intersects(sphere, ray);
+    let intersections = intersect(sphere, ray);
 
     expect(intersections.length).to.equal(2);
-    expect(intersections[0]).to.equal(5);
-    expect(intersections[1]).to.equal(5);
+    expect(intersections[0].timeValueOfIntersection).to.equal(5);
+    expect(intersections[1].timeValueOfIntersection).to.equal(5);
   });
 
   it('a ray misses a sphere', () => {
@@ -79,7 +80,7 @@ describe('Ray and sphere intersections', () => {
 
     let sphere = new Sphere();
 
-    let intersections = intersects(sphere, ray);
+    let intersections = intersect(sphere, ray);
 
     expect(intersections.length).to.equal(0);
   });
@@ -89,11 +90,11 @@ describe('Ray and sphere intersections', () => {
 
     let sphere = new Sphere();
 
-    let intersections = intersects(sphere, ray);
+    let intersections = intersect(sphere, ray);
 
     expect(intersections.length).to.equal(2);
-    expect(intersections[0]).to.equal(-1);
-    expect(intersections[1]).to.equal(1);
+    expect(intersections[0].timeValueOfIntersection).to.equal(-1);
+    expect(intersections[1].timeValueOfIntersection).to.equal(1);
   });
 
   it('a sphere is behind a ray', () => {
@@ -101,11 +102,11 @@ describe('Ray and sphere intersections', () => {
 
     let sphere = new Sphere();
 
-    let intersections = intersects(sphere, ray);
+    let intersections = intersect(sphere, ray);
 
     expect(intersections.length).to.equal(2);
-    expect(intersections[0]).to.equal(-6);
-    expect(intersections[1]).to.equal(-4);
+    expect(intersections[0].timeValueOfIntersection).to.equal(-6);
+    expect(intersections[1].timeValueOfIntersection).to.equal(-4);
   });
 
   it('an intersection encapsulates t and object', () => {
@@ -115,5 +116,28 @@ describe('Ray and sphere intersections', () => {
 
     expect(intersection.timeValueOfIntersection).to.equal(3.5);
     expect(intersection.intersectedObject.constructor.name).to.equal('Sphere');
+  });
+
+  it('aggregating intersections', () => {
+    let sphere = new Sphere();
+    let i1 = new Intersection(1, sphere);
+    let i2 = new Intersection(2, sphere);
+
+    let xs = intersections(i1, i2);
+
+    expect(xs.length).to.equal(2);
+    expect(xs[0].timeValueOfIntersection).to.equal(1);
+    expect(xs[1].timeValueOfIntersection).to.equal(2);
+  });
+
+  it('intersect sets the object on the intersection', () => {
+    let r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
+    let s = new Sphere();
+
+    let xs = intersect(s, r);
+
+    expect(xs.length).to.equal(2);
+    expect(xs[0].intersectedObject.constructor.name).to.equal('Sphere');
+    expect(xs[1].intersectedObject.constructor.name).to.equal('Sphere');
   });
 });

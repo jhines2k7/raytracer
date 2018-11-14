@@ -5,12 +5,13 @@ const multiply = require('./scalar_multiplication');
 const subtract = require('./subtraction');
 const Point = require('../point');
 const dot = require('./dot_product');
+const Intersection = require('../intersection');
 
 function position(ray, time) {
   return add(ray.origin, multiply(time, ray.direction));
 }
 
-function intersects(sphere, ray) {
+function intersect(sphere, ray) {
   let sphereToRay = subtract(ray.origin, new Point(0, 0, 0));
 
   let a = dot(ray.direction, ray.direction);
@@ -26,14 +27,19 @@ function intersects(sphere, ray) {
     let t2 = ((-1 * b) + Math.sqrt(discriminant)) / (2 * a);
 
     if(t1 > t2) {
-      return [t2, t1]
+      return intersections(new Intersection(t2, sphere), new Intersection(t1, sphere))
     }
 
-    return [t1, t2];
+    return intersections(new Intersection(t1, sphere), new Intersection(t2, sphere));
   }
+}
+
+function intersections(...args) {
+  return args;
 }
 
 module.exports = {
   position,
-  intersects
+  intersect,
+  intersections
 };
