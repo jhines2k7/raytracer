@@ -8,6 +8,7 @@ const intersectionUtils = require('../js/utils/intersection_utils');
 const position = intersectionUtils.position;
 const intersects = intersectionUtils.intersects;
 const Sphere = require('../js/sphere');
+const Intersection = require('../js/intersection');
 
 describe('Ray and sphere intersections', () => {
   it('creating and querying a ray', () => {
@@ -105,5 +106,14 @@ describe('Ray and sphere intersections', () => {
     expect(intersections.length).to.equal(2);
     expect(intersections[0]).to.equal(-6);
     expect(intersections[1]).to.equal(-4);
+  });
+
+  it('an intersection encapsulates t and object', () => {
+    let sphere = new Sphere();
+
+    let intersection = new Intersection(3.5, sphere);
+
+    expect(intersection.timeValueOfIntersection).to.equal(3.5);
+    expect(intersection.intersectedObject.constructor.name).to.equal('Sphere');
   });
 });
