@@ -6,6 +6,7 @@ const Vector = require('../js/vector');
 const Ray = require('../js/ray');
 const intersectionUtils = require('../js/utils/intersection_utils');
 const position = intersectionUtils.position;
+const intersects = intersectionUtils.intersects;
 const Sphere = require('../js/sphere');
 
 describe('Ray and sphere intersections', () => {
@@ -58,6 +59,5 @@ describe('Ray and sphere intersections', () => {
     expect(intersections.length).to.equal(2);
     expect(intersections[0]).to.equal(4);
     expect(intersections[1]).to.equal(6);
-
   });
 });
