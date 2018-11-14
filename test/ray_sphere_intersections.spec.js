@@ -60,4 +60,50 @@ describe('Ray and sphere intersections', () => {
     expect(intersections[0]).to.equal(4);
     expect(intersections[1]).to.equal(6);
   });
+
+  it('a ray intersects a sphere at a tangent', () => {
+    let ray = new Ray(new Point(0, 1, -5), new Vector(0, 0, 1));
+
+    let sphere = new Sphere();
+
+    let intersections = intersects(sphere, ray);
+
+    expect(intersections.length).to.equal(2);
+    expect(intersections[0]).to.equal(5);
+    expect(intersections[1]).to.equal(5);
+  });
+
+  it('a ray misses a sphere', () => {
+    let ray = new Ray(new Point(0, 2, -5), new Vector(0, 0, 1));
+
+    let sphere = new Sphere();
+
+    let intersections = intersects(sphere, ray);
+
+    expect(intersections.length).to.equal(0);
+  });
+
+  it('a ray originates inside a sphere', () => {
+    let ray = new Ray(new Point(0, 0, 0), new Vector(0, 0, 1));
+
+    let sphere = new Sphere();
+
+    let intersections = intersects(sphere, ray);
+
+    expect(intersections.length).to.equal(2);
+    expect(intersections[0]).to.equal(-1);
+    expect(intersections[1]).to.equal(1);
+  });
+
+  it('a sphere is behind a ray', () => {
+    let ray = new Ray(new Point(0, 0, 5), new Vector(0, 0, 1));
+
+    let sphere = new Sphere();
+
+    let intersections = intersects(sphere, ray);
+
+    expect(intersections.length).to.equal(2);
+    expect(intersections[0]).to.equal(-6);
+    expect(intersections[1]).to.equal(-4);
+  });
 });
