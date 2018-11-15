@@ -38,8 +38,15 @@ function intersections(...args) {
   return args;
 }
 
+function hit(intersections) {
+  return intersections.reduce((prev, curr) => {
+    return prev.timeValueOfIntersection < curr.timeValueOfIntersection ? prev : curr;
+  });
+}
+
 module.exports = {
   position,
   intersect,
-  intersections
+  intersections,
+  hit
 };

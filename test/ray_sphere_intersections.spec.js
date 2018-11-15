@@ -8,6 +8,7 @@ const intersectionUtils = require('../js/utils/intersection_utils');
 const position = intersectionUtils.position;
 const intersect = intersectionUtils.intersect;
 const intersections = intersectionUtils.intersections;
+const hit = intersectionUtils.hit;
 const Sphere = require('../js/sphere');
 const Intersection = require('../js/intersection');
 
@@ -139,5 +140,17 @@ describe('Ray and sphere intersections', () => {
     expect(xs.length).to.equal(2);
     expect(xs[0].intersectedObject.constructor.name).to.equal('Sphere');
     expect(xs[1].intersectedObject.constructor.name).to.equal('Sphere');
+  });
+
+  it('the hit, when all intersections have positive timeValueOfIntersection', () => {
+    let s = new Sphere();
+    let i1 = new Intersection(1, s);
+    let i2 = new Intersection(2, s);
+
+    let xs = intersections(i1, i2);
+
+    let h = hit(xs);
+
+    expect(h.timeValueOfIntersection).to.equal(1);
   });
 });
