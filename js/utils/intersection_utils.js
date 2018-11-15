@@ -6,6 +6,9 @@ const subtract = require('./subtraction');
 const Point = require('../point');
 const dot = require('./dot_product');
 const Intersection = require('../intersection');
+const Ray = require('../ray');
+const transformationUtils = require('./transformations');
+const transform = transformationUtils.transform;
 
 function position(ray, time) {
   return add(ray.origin, multiply(time, ray.direction));
@@ -52,9 +55,19 @@ function hit(intersections) {
   }
 }
 
+function transformRay(ray, matrix, transformation) {
+  if(transformation === 'translation') {
+    return new Ray(transform(matrix, ray.origin), ray.direction);
+  } else if(transformation === 'scaling') {
+    return new Ray(transform(matrix, ray.origin), transform(matrix, ray.direction));
+  }
+
+}
+
 module.exports = {
   position,
   intersect,
   intersections,
-  hit
+  hit,
+  transformRay
 };

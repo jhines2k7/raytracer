@@ -9,8 +9,12 @@ const position = intersectionUtils.position;
 const intersect = intersectionUtils.intersect;
 const intersections = intersectionUtils.intersections;
 const hit = intersectionUtils.hit;
+const transformRay = intersectionUtils.transformRay;
 const Sphere = require('../js/sphere');
 const Intersection = require('../js/intersection');
+const transformationUtils = require('../js/utils/transformations');
+const translation = transformationUtils.translation;
+const scaling = transformationUtils.scaling;
 
 describe('Ray and sphere intersections', () => {
   it('creating and querying a ray', () => {
@@ -190,5 +194,37 @@ describe('Ray and sphere intersections', () => {
     let h = hit(xs);
 
     expect(h.timeValueOfIntersection).to.equal(2);
+  });
+
+  it('translating a ray', () => {
+    let r = new Ray(new Point(1, 2, 3), new Vector(0, 1, 0));
+
+    let translationMatrix = translation(3, 4, 5);
+
+    let r2 = transformRay(r, translationMatrix, 'translation');
+
+    expect(r2.origin.x).to.equal(4);
+    expect(r2.origin.y).to.equal(6);
+    expect(r2.origin.z).to.equal(8);
+
+    expect(r2.direction.x).to.equal(0);
+    expect(r2.direction.y).to.equal(1);
+    expect(r2.direction.z).to.equal(0);
+  });
+
+  it('scaling a ray', () => {
+    let r = new Ray(new Point(1, 2, 3), new Vector(0, 1, 0));
+
+    let scalingMatrix = scaling(2, 3, 4);
+
+    let r2 = transformRay(r, scalingMatrix, 'scaling');
+
+    expect(r2.origin.x).to.equal(2);
+    expect(r2.origin.y).to.equal(6);
+    expect(r2.origin.z).to.equal(12);
+
+    expect(r2.direction.x).to.equal(0);
+    expect(r2.direction.y).to.equal(3);
+    expect(r2.direction.z).to.equal(0);
   });
 });
