@@ -41,7 +41,7 @@ function intersections(...args) {
 function hit(intersections) {
   let nonNegativeIntersections = intersections.filter((intersection) => {
     return intersection.timeValueOfIntersection > 0;
-  })
+  });
 
   if(nonNegativeIntersections.length > 0) {
     return nonNegativeIntersections.reduce((prev, curr) => {
