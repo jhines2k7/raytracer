@@ -165,4 +165,30 @@ describe('Ray and sphere intersections', () => {
 
     expect(h.timeValueOfIntersection).to.equal(2);
   });
+
+  it('the hit, when all intersections have negative timeValueOfIntersection', () => {
+    let s = new Sphere();
+    let i1 = new Intersection(-2, s);
+    let i2 = new Intersection(-1, s);
+
+    let xs = intersections(i1, i2);
+
+    let h = hit(xs);
+
+    expect(h).to.equal(null);
+  });
+
+  it('the hit, is always the lowest non-negative intersection', () => {
+    let s = new Sphere();
+    let i1 = new Intersection(5, s);
+    let i2 = new Intersection(7, s);
+    let i3 = new Intersection(-3, s);
+    let i4 = new Intersection(2, s);
+
+    let xs = intersections(i1, i2, i3, i4);
+
+    let h = hit(xs);
+
+    expect(h.timeValueOfIntersection).to.equal(2);
+  });
 });

@@ -39,11 +39,17 @@ function intersections(...args) {
 }
 
 function hit(intersections) {
-  return intersections.filter((intersection) => {
+  let nonNegativeIntersections = intersections.filter((intersection) => {
     return intersection.timeValueOfIntersection > 0;
-  }).reduce((prev, curr) => {
-    return prev.timeValueOfIntersection < curr.timeValueOfIntersection ? prev : curr;
-  });
+  })
+
+  if(nonNegativeIntersections.length > 0) {
+    return nonNegativeIntersections.reduce((prev, curr) => {
+      return prev.timeValueOfIntersection < curr.timeValueOfIntersection ? prev : curr;
+    });
+  } else {
+    return null;
+  }
 }
 
 module.exports = {
