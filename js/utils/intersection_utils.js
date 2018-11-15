@@ -39,7 +39,9 @@ function intersections(...args) {
 }
 
 function hit(intersections) {
-  return intersections.reduce((prev, curr) => {
+  return intersections.filter((intersection) => {
+    return intersection.timeValueOfIntersection > 0;
+  }).reduce((prev, curr) => {
     return prev.timeValueOfIntersection < curr.timeValueOfIntersection ? prev : curr;
   });
 }

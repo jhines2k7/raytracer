@@ -153,4 +153,16 @@ describe('Ray and sphere intersections', () => {
 
     expect(h.timeValueOfIntersection).to.equal(1);
   });
+
+  it('the hit, when some intersections have negative timeValueOfIntersection', () => {
+    let s = new Sphere();
+    let i1 = new Intersection(-1, s);
+    let i2 = new Intersection(2, s);
+
+    let xs = intersections(i1, i2);
+
+    let h = hit(xs);
+
+    expect(h.timeValueOfIntersection).to.equal(2);
+  });
 });
