@@ -17,7 +17,7 @@ const isEqual = require('../js/utils/is_equal');
 
 describe('Matrix transformations', () => {
   it('multiplying by a translation matrix', () => {
-    let translationMatrix = translation(5, -3, 2);
+    let translationMatrix = translation(5, -3, 2).matrix;
     let p = new Point(-3, 4, 5);
     let transformed = transform(translationMatrix, p);
 
@@ -27,7 +27,7 @@ describe('Matrix transformations', () => {
   });
 
   it('multiplying by the inverse of a translation matrix', () => {
-    let translationMatrix = translation(5, -3, 2);
+    let translationMatrix = translation(5, -3, 2).matrix;
     let translationInverse = inverse(translationMatrix);
     let p = new Point(-3, 4, 5);
     let transformed = transform(translationInverse, p);
@@ -38,7 +38,7 @@ describe('Matrix transformations', () => {
   });
 
   it('translation does not affect vectors', () => {
-    let translationMatrix = translation(5, -3, 2);
+    let translationMatrix = translation(5, -3, 2).matrix;
     let p = new Vector(-3, 4, 5);
     let transformed = transform(translationMatrix, p);
 
@@ -48,7 +48,7 @@ describe('Matrix transformations', () => {
   });
 
   it('a scaling matrix applied to a point', () => {
-    let scalingMatrix = scaling(2, 3, 4);
+    let scalingMatrix = scaling(2, 3, 4).matrix;
     let p = new Point(-4, 6, 8);
     let transformed = transform(scalingMatrix, p);
 
@@ -58,7 +58,7 @@ describe('Matrix transformations', () => {
   });
 
   it('a scaling matrix applied to a vector', () => {
-    let scalingMatrix = scaling(2, 3, 4);
+    let scalingMatrix = scaling(2, 3, 4).matrix;
     let p = new Vector(-4, 6, 8);
     let transformed = transform(scalingMatrix, p);
 
@@ -68,7 +68,7 @@ describe('Matrix transformations', () => {
   });
 
   it('multiplying by the inverse of a scaling matrix', () => {
-    let scalingMatrix = scaling(2, 3, 4);
+    let scalingMatrix = scaling(2, 3, 4).matrix;
     let invertedScaling = inverse(scalingMatrix);
     let p = new Point(-4, 6, 8);
     let transformed = transform(invertedScaling, p);
@@ -79,7 +79,7 @@ describe('Matrix transformations', () => {
   });
 
   it('reflection is scaling by a negative value', () => {
-    let scalingMatrix = scaling(-1, 1, 1);
+    let scalingMatrix = scaling(-1, 1, 1).matrix;
     let p = new Point(2, 3, 4);
     let transformed = transform(scalingMatrix, p);
 
@@ -91,8 +91,8 @@ describe('Matrix transformations', () => {
   it('rotating a point around the x-axis', () => {
     let p = new Point(0, 1, 0);
 
-    let halfQuarterMatrix = rotationX(Math.PI / 4);
-    let fullQuarterMatrix = rotationX(Math.PI / 2);
+    let halfQuarterMatrix = rotationX(Math.PI / 4).matrix;
+    let fullQuarterMatrix = rotationX(Math.PI / 2).matrix;
 
     let rotatedHalfQuarter = transform(halfQuarterMatrix, p);
     let rotatedFullQuarter = transform(fullQuarterMatrix, p);
@@ -109,7 +109,7 @@ describe('Matrix transformations', () => {
   it('inverse of an x-rotation rotates in the opposite direction', () => {
     let p = new Point(0, 1, 0);
 
-    let halfQuarterMatrix = rotationX(Math.PI / 4);
+    let halfQuarterMatrix = rotationX(Math.PI / 4).matrix;
     let halfQuarterInverse = inverse(halfQuarterMatrix);
 
     let rotatedHalfQuarterInverse = transform(halfQuarterInverse, p);
@@ -122,8 +122,8 @@ describe('Matrix transformations', () => {
   it('rotating a point around the y-axis', () => {
     let p = new Point(0, 0, 1);
 
-    let halfQuarterMatrix = rotationY(Math.PI / 4);
-    let fullQuarterMatrix = rotationY(Math.PI / 2);
+    let halfQuarterMatrix = rotationY(Math.PI / 4).matrix;
+    let fullQuarterMatrix = rotationY(Math.PI / 2).matrix;
 
     let rotatedHalfQuarter = transform(halfQuarterMatrix, p);
     let rotatedFullQuarter = transform(fullQuarterMatrix, p);
@@ -140,8 +140,8 @@ describe('Matrix transformations', () => {
   it('rotating a point around the z-axis', () => {
     let p = new Point(0, 1, 0);
 
-    let halfQuarterMatrix = rotationZ(Math.PI / 4);
-    let fullQuarterMatrix = rotationZ(Math.PI / 2);
+    let halfQuarterMatrix = rotationZ(Math.PI / 4).matrix;
+    let fullQuarterMatrix = rotationZ(Math.PI / 2).matrix;
 
     let rotatedHalfQuarter = transform(halfQuarterMatrix, p);
     let rotatedFullQuarter = transform(fullQuarterMatrix, p);
@@ -165,7 +165,7 @@ describe('Matrix transformations', () => {
       zy: 0
     };
 
-    let shearingMatrix = shearing(proportions);
+    let shearingMatrix = shearing(proportions).matrix;
 
     let p = new Point(2, 3, 4);
 
@@ -186,7 +186,7 @@ describe('Matrix transformations', () => {
       zy: 0
     };
 
-    let shearingMatrix = shearing(proportions);
+    let shearingMatrix = shearing(proportions).matrix;
 
     let p = new Point(2, 3, 4);
 
@@ -207,7 +207,7 @@ describe('Matrix transformations', () => {
       zy: 0
     };
 
-    let shearingMatrix = shearing(proportions);
+    let shearingMatrix = shearing(proportions).matrix;
 
     let p = new Point(2, 3, 4);
 
@@ -228,7 +228,7 @@ describe('Matrix transformations', () => {
       zy: 0
     };
 
-    let shearingMatrix = shearing(proportions);
+    let shearingMatrix = shearing(proportions).matrix;
 
     let p = new Point(2, 3, 4);
 
@@ -249,7 +249,7 @@ describe('Matrix transformations', () => {
       zy: 0
     };
 
-    let shearingMatrix = shearing(proportions);
+    let shearingMatrix = shearing(proportions).matrix;
 
     let p = new Point(2, 3, 4);
 
@@ -270,7 +270,7 @@ describe('Matrix transformations', () => {
       zy: 1
     };
 
-    let shearingMatrix = shearing(proportions);
+    let shearingMatrix = shearing(proportions).matrix;
 
     let p = new Point(2, 3, 4);
 
@@ -284,9 +284,9 @@ describe('Matrix transformations', () => {
   it('individual transformations are applied in sequence', () => {
     let p = new Point(1, 0, 1);
 
-    let rotationMatrix = rotationX(Math.PI / 2);
-    let scalingMatrix = scaling(5, 5, 5);
-    let translationMatrix = translation(10, 5, 7);
+    let rotationMatrix = rotationX(Math.PI / 2).matrix;
+    let scalingMatrix = scaling(5, 5, 5).matrix;
+    let translationMatrix = translation(10, 5, 7).matrix;
 
     let p2 = transform(rotationMatrix, p);
     expect(p2.x).to.equal(1);
@@ -307,9 +307,9 @@ describe('Matrix transformations', () => {
   it('chained transformations must be applied in reverse order', () => {
     let p = new Point(1, 0, 1);
 
-    let rotationMatrix = rotationX(Math.PI / 2);
-    let scalingMatrix = scaling(5, 5, 5);
-    let translationMatrix = translation(10, 5, 7);
+    let rotationMatrix = rotationX(Math.PI / 2).matrix;
+    let scalingMatrix = scaling(5, 5, 5).matrix;
+    let translationMatrix = translation(10, 5, 7).matrix;
 
     let chainedTransformations = matrixMultiply(matrixMultiply(translationMatrix, scalingMatrix), rotationMatrix);
 

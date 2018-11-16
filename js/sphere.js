@@ -1,3 +1,9 @@
 'use strict';
 
-module.exports = class Sphere{};
+let identityMatrix = require('../js/utils/matrix_utils').identityMatrix;
+
+module.exports = class Sphere{
+  constructor(transform = identityMatrix) {
+    this.transform = transform;
+  }
+};

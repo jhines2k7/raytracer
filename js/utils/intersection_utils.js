@@ -9,16 +9,20 @@ const Intersection = require('../intersection');
 const Ray = require('../ray');
 const transformationUtils = require('./transformations');
 const transform = transformationUtils.transform;
+const inverse = require('./matrix_utils').inverse;
+const identityMatrix = require('./matrix_utils').identityMatrix;
+const MATRIX_TYPES = require('./matrix_types');
 
 function position(ray, time) {
   return add(ray.origin, multiply(time, ray.direction));
 }
 
 function intersect(sphere, ray) {
-  let sphereToRay = subtract(ray.origin, new Point(0, 0, 0));
+  let ray2 = transformRay(ray, inverse(sphere.transform));
+  let sphereToRay = subtract(ray2.origin, new Point(0, 0, 0));
 
-  let a = dot(ray.direction, ray.direction);
-  let b = 2 * dot(ray.direction, sphereToRay);
+  let a = dot(ray2.direction, ray2.direction);
+  let b = 2 * dot(ray2.direction, sphereToRay);
   let c = dot(sphereToRay, sphereToRay) - 1;
 
   let discriminant = b * b - 4 * a * c;
@@ -55,13 +59,14 @@ function hit(intersections) {
   }
 }
 
-function transformRay(ray, matrix, transformation) {
-  if(transformation === 'translation') {
-    return new Ray(transform(matrix, ray.origin), ray.direction);
-  } else if(transformation === 'scaling') {
-    return new Ray(transform(matrix, ray.origin), transform(matrix, ray.direction));
+function transformRay(ray, matrix) {
+  if(matrix.matrixType === MATRIX_TYPES.TRANSLATION) {
+    return new Ray(transform(matrix.matrix, ray.origin), ray.direction);
+  } else if(matrix.matrixType === MATRIX_TYPES.SCALING) {
+    return new Ray(transform(matrix.matrix, ray.origin), transform(matrix.matrix, ray.direction));
+  } else {
+    return new Ray(transform(identityMatrix, ray.origin), transform(identityMatrix, ray.direction));
   }
-
 }
 
 module.exports = {

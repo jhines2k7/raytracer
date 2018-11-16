@@ -15,6 +15,7 @@ const Intersection = require('../js/intersection');
 const transformationUtils = require('../js/utils/transformations');
 const translation = transformationUtils.translation;
 const scaling = transformationUtils.scaling;
+const identityMatrix = require('../js/utils/matrix_utils').identityMatrix;
 
 describe('Ray and sphere intersections', () => {
   it('creating and querying a ray', () => {
@@ -201,7 +202,7 @@ describe('Ray and sphere intersections', () => {
 
     let translationMatrix = translation(3, 4, 5);
 
-    let r2 = transformRay(r, translationMatrix, 'translation');
+    let r2 = transformRay(r, translationMatrix);
 
     expect(r2.origin.x).to.equal(4);
     expect(r2.origin.y).to.equal(6);
@@ -217,7 +218,7 @@ describe('Ray and sphere intersections', () => {
 
     let scalingMatrix = scaling(2, 3, 4);
 
-    let r2 = transformRay(r, scalingMatrix, 'scaling');
+    let r2 = transformRay(r, scalingMatrix);
 
     expect(r2.origin.x).to.equal(2);
     expect(r2.origin.y).to.equal(6);
@@ -226,5 +227,44 @@ describe('Ray and sphere intersections', () => {
     expect(r2.direction.x).to.equal(0);
     expect(r2.direction.y).to.equal(3);
     expect(r2.direction.z).to.equal(0);
+  });
+
+  it('a spheres default transformation', () => {
+    let s = new Sphere();
+
+    expect(s.transform).to.deep.equal(identityMatrix);
+  });
+
+  it('changing a spheres transformation', () => {
+    let s = new Sphere();
+
+    let translationMatrix = translation(2, 3, 4).matrix;
+
+    s.transform = translationMatrix;
+
+    expect(s.transform).to.deep.equal(translationMatrix);
+  });
+
+  it('intersecting a scaled sphere with a ray', () => {
+    let r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
+    let s = new Sphere();
+    s.transform = scaling(2, 2, 2);
+
+    let xs = intersect(s, r);
+
+    expect(xs.length).to.equal(2);
+    expect(xs[0].timeValueOfIntersection).to.equal(3);
+    expect(xs[1].timeValueOfIntersection).to.equal(7);
+  });
+
+  it('intersecting a translated sphere with a ray', () => {
+    let r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
+
+    let s = new Sphere();
+    s.transform = translation(5, 0, 0).matrix;
+
+    let xs = intersect(s, r);
+
+    expect(xs.length).to.equal(0);
   });
 });
