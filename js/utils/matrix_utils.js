@@ -1,5 +1,7 @@
 'use strict';
 
+const MATRIX_TYPES = require('./matrix_types');
+
 function createMatrix(rows, columns) {
   return buildMatrix(rows, columns);
 }
@@ -52,12 +54,15 @@ function buildMatrix(rows, columns) {
   return matrix;
 }
 
-const identityMatrix = [
-  [1, 0, 0, 0],
-  [0, 1, 0, 0],
-  [0, 0, 1, 0],
-  [0, 0, 0, 1]
-];
+const identityMatrix = {
+  matrix: [
+    [1, 0, 0, 0],
+    [0, 1, 0, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, 1]
+  ],
+  matrixType: MATRIX_TYPES.IDENTITY
+};
 
 function transpose(matrix) {
   let transposed = createMatrix(4, 4);

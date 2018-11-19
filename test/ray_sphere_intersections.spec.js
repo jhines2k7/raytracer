@@ -238,7 +238,7 @@ describe('Ray and sphere intersections', () => {
   it('changing a spheres transformation', () => {
     let s = new Sphere();
 
-    let translationMatrix = translation(2, 3, 4).matrix;
+    let translationMatrix = translation(2, 3, 4);
 
     s.transform = translationMatrix;
 
@@ -261,7 +261,7 @@ describe('Ray and sphere intersections', () => {
     let r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
 
     let s = new Sphere();
-    s.transform = translation(5, 0, 0).matrix;
+    s.transform = translation(5, 0, 0);
 
     let xs = intersect(s, r);
 

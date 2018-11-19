@@ -18,7 +18,8 @@ function position(ray, time) {
 }
 
 function intersect(sphere, ray) {
-  let ray2 = transformRay(ray, inverse(sphere.transform));
+  let inversedTransformationMatrix = inverse(sphere.transform.matrix);
+  let ray2 = transformRay(ray, {matrix: inversedTransformationMatrix, matrixType: sphere.transform.matrixType});
   let sphereToRay = subtract(ray2.origin, new Point(0, 0, 0));
 
   let a = dot(ray2.direction, ray2.direction);
@@ -65,7 +66,7 @@ function transformRay(ray, matrix) {
   } else if(matrix.matrixType === MATRIX_TYPES.SCALING) {
     return new Ray(transform(matrix.matrix, ray.origin), transform(matrix.matrix, ray.direction));
   } else {
-    return new Ray(transform(identityMatrix, ray.origin), transform(identityMatrix, ray.direction));
+    return new Ray(transform(identityMatrix.matrix, ray.origin), transform(identityMatrix.matrix, ray.direction));
   }
 }
 

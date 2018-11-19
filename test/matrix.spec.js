@@ -218,7 +218,7 @@ describe("matrix utility functions", () => {
     fourByFourMatrix[3][2] = 16;
     fourByFourMatrix[3][3] = 32;
 
-    let productOfIdentityMatrixMultiplication = matrixMultiply(fourByFourMatrix, identityMatrix);
+    let productOfIdentityMatrixMultiplication = matrixMultiply(fourByFourMatrix, identityMatrix.matrix);
 
     expect(fourByFourMatrix).deep.equal(productOfIdentityMatrixMultiplication);
   });
@@ -281,24 +281,24 @@ describe("matrix utility functions", () => {
   });
 
   it('should transpose an identity matrix', () => {
-    let transposedIdentity = transpose(identityMatrix);
+    let transposedIdentity = transpose(identityMatrix.matrix);
 
-    expect(transposedIdentity[0][0]).to.equal(identityMatrix[0][0]);
-    expect(transposedIdentity[0][1]).to.equal(identityMatrix[0][1]);
-    expect(transposedIdentity[0][2]).to.equal(identityMatrix[0][2]);
-    expect(transposedIdentity[0][3]).to.equal(identityMatrix[0][3]);
-    expect(transposedIdentity[1][0]).to.equal(identityMatrix[1][0]);
-    expect(transposedIdentity[1][1]).to.equal(identityMatrix[1][1]);
-    expect(transposedIdentity[1][2]).to.equal(identityMatrix[1][2]);
-    expect(transposedIdentity[1][3]).to.equal(identityMatrix[1][3]);
-    expect(transposedIdentity[2][0]).to.equal(identityMatrix[2][0]);
-    expect(transposedIdentity[2][1]).to.equal(identityMatrix[2][1]);
-    expect(transposedIdentity[2][2]).to.equal(identityMatrix[2][2]);
-    expect(transposedIdentity[2][3]).to.equal(identityMatrix[2][3]);
-    expect(transposedIdentity[3][0]).to.equal(identityMatrix[3][0]);
-    expect(transposedIdentity[3][1]).to.equal(identityMatrix[3][1]);
-    expect(transposedIdentity[3][2]).to.equal(identityMatrix[3][2]);
-    expect(transposedIdentity[3][3]).to.equal(identityMatrix[3][3]);
+    expect(transposedIdentity[0][0]).to.equal(identityMatrix.matrix[0][0]);
+    expect(transposedIdentity[0][1]).to.equal(identityMatrix.matrix[0][1]);
+    expect(transposedIdentity[0][2]).to.equal(identityMatrix.matrix[0][2]);
+    expect(transposedIdentity[0][3]).to.equal(identityMatrix.matrix[0][3]);
+    expect(transposedIdentity[1][0]).to.equal(identityMatrix.matrix[1][0]);
+    expect(transposedIdentity[1][1]).to.equal(identityMatrix.matrix[1][1]);
+    expect(transposedIdentity[1][2]).to.equal(identityMatrix.matrix[1][2]);
+    expect(transposedIdentity[1][3]).to.equal(identityMatrix.matrix[1][3]);
+    expect(transposedIdentity[2][0]).to.equal(identityMatrix.matrix[2][0]);
+    expect(transposedIdentity[2][1]).to.equal(identityMatrix.matrix[2][1]);
+    expect(transposedIdentity[2][2]).to.equal(identityMatrix.matrix[2][2]);
+    expect(transposedIdentity[2][3]).to.equal(identityMatrix.matrix[2][3]);
+    expect(transposedIdentity[3][0]).to.equal(identityMatrix.matrix[3][0]);
+    expect(transposedIdentity[3][1]).to.equal(identityMatrix.matrix[3][1]);
+    expect(transposedIdentity[3][2]).to.equal(identityMatrix.matrix[3][2]);
+    expect(transposedIdentity[3][3]).to.equal(identityMatrix.matrix[3][3]);
   });
 
   it('should calculate the determinant of a 2 x 2 matrix and equal 17', () => {

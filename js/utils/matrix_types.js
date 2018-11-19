@@ -6,5 +6,6 @@ module.exports = Object.freeze({
   "ROTATION_X": 3,
   "ROTATION_Y": 4,
   "ROTATION_Z": 5,
-  "SHEARING": 6
+  "SHEARING": 6,
+  "IDENTITY": 7
 });
