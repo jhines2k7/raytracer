@@ -36,19 +36,20 @@ const ROTATIONS = [
 ];
 
 const WHITE = new Color(1, 1, 1);
+const GREEN = new Color(0, 1, 0);
 
 for(let i = 0; i < ROTATIONS.length; i++) {
   // align our clock face along the y-axis (0, 1, 0)
   let point = new Point(0, 1, 0);
 
   // rotate
-  let rotationMatrix = rotationZ(ROTATIONS[i]);
+  let rotationMatrix = rotationZ(ROTATIONS[i]).matrix;
 
   // scale
-  let scalingMatrix = scaling(canvas.width * 3/8, canvas.width * 3/8, 0);
+  let scalingMatrix = scaling(canvas.width * 3/8, canvas.width * 3/8, 0).matrix;
 
   // translate
-  let translationMatrix = translation(canvas.width / 2, canvas.height / 2, 0);
+  let translationMatrix = translation(canvas.width / 2, canvas.height / 2, 0).matrix;
 
   // chain
   let chainedTransformations = matrixMultiply(matrixMultiply(translationMatrix, scalingMatrix), rotationMatrix);
@@ -59,11 +60,11 @@ for(let i = 0; i < ROTATIONS.length; i++) {
   let X = Math.abs(Math.ceil(transformed.x));
   let Y = Math.abs(Math.ceil(transformed.y));
 
-  canvas.writePixel(X, Y, WHITE);
-  canvas.writePixel(X - 1, Y, WHITE);
-  canvas.writePixel(X + 1, Y, WHITE);
-  canvas.writePixel(X, Y - 1, WHITE);
-  canvas.writePixel(X, Y + 1, WHITE);
+  canvas.writePixel(X, Y, GREEN);
+  canvas.writePixel(X - 1, Y, GREEN);
+  canvas.writePixel(X + 1, Y, GREEN);
+  canvas.writePixel(X, Y - 1, GREEN);
+  canvas.writePixel(X, Y + 1, GREEN);
 }
 
 let FILE_PATH = './';
