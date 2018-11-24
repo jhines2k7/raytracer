@@ -232,7 +232,7 @@ describe('Ray and sphere intersections', () => {
   it('a spheres default transformation', () => {
     let s = new Sphere();
 
-    expect(s.transform).to.deep.equal(identityMatrix);
+    expect(s.transformation).to.deep.equal(identityMatrix);
   });
 
   it('changing a spheres transformation', () => {
@@ -240,15 +240,15 @@ describe('Ray and sphere intersections', () => {
 
     let translationMatrix = translation(2, 3, 4);
 
-    s.transform = translationMatrix;
+    s.transformation = translationMatrix;
 
-    expect(s.transform).to.deep.equal(translationMatrix);
+    expect(s.transformation).to.deep.equal(translationMatrix);
   });
 
   it('intersecting a scaled sphere with a ray', () => {
     let r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
     let s = new Sphere();
-    s.transform = scaling(2, 2, 2);
+    s.transformation = scaling(2, 2, 2);
 
     let xs = intersect(s, r);
 
@@ -261,7 +261,7 @@ describe('Ray and sphere intersections', () => {
     let r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
 
     let s = new Sphere();
-    s.transform = translation(5, 0, 0);
+    s.transformation = translation(5, 0, 0);
 
     let xs = intersect(s, r);
 

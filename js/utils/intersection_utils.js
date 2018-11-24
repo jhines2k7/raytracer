@@ -18,8 +18,8 @@ function position(ray, time) {
 }
 
 function intersect(sphere, ray) {
-  let inversedTransformationMatrix = inverse(sphere.transform.matrix);
-  let ray2 = transformRay(ray, {matrix: inversedTransformationMatrix, matrixType: sphere.transform.matrixType});
+  let inversedTransformationMatrix = inverse(sphere.transformation.matrix);
+  let ray2 = transformRay(ray, {matrix: inversedTransformationMatrix, matrixType: sphere.transformation.matrixType});
   let sphereToRay = subtract(ray2.origin, new Point(0, 0, 0));
 
   let a = dot(ray2.direction, ray2.direction);

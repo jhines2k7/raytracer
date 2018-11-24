@@ -7,6 +7,8 @@ const Vector = require('../js/vector');
 const lightShadingUtils = require('../js/utils/light_shading_utils');
 const normalAt = lightShadingUtils.normalAt;
 const normalize = require('../js/utils/normalize');
+const transformations = require('../js/utils/transformations');
+const translation = transformations.translation;
 
 describe('Light and Shading', () => {
   it('the normal on a sphere at a point on the x-axis', () => {
@@ -59,5 +61,13 @@ describe('Light and Shading', () => {
     expect(normal.x).to.equal(normalizedVector.x);
     expect(normal.y).to.equal(normalizedVector.y);
     expect(normal.z).to.equal(normalizedVector.z);
-  })
+  });
+
+  it('computing the normal on a translated sphere', () => {
+    let sphere = new Sphere();
+
+    sphere.transformation = translation(0, 1, 0);
+
+    //let normal = normalAt
+  });
 });
