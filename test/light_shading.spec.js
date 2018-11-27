@@ -9,6 +9,11 @@ const normalAt = lightShadingUtils.normalAt;
 const normalize = require('../js/utils/normalize');
 const transformations = require('../js/utils/transformations');
 const translation = transformations.translation;
+const scaling = transformations.scaling;
+const rotationZ = transformations.rotationZ;
+const isEqual = require('../js/utils/is_equal');
+const matrixMultiply = require('../js/utils/matrix_utils').matrixMultiply;
+const matrixTypes = require('../js/utils/matrix_types');
 
 describe('Light and Shading', () => {
   it('the normal on a sphere at a point on the x-axis', () => {
@@ -68,6 +73,25 @@ describe('Light and Shading', () => {
 
     sphere.transformation = translation(0, 1, 0);
 
-    //let normal = normalAt
+    let normal = normalAt(sphere, new Point(0, 1.70711, -0.70711));
+
+    expect(isEqual(normal.x, 0)).to.equal(true);
+    expect(isEqual(normal.y, 0.70711)).to.equal(true);
+    expect(isEqual(normal.z, -0.70711)).to.equal(true);
+  });
+
+  it('computing the normal on a transformed sphere', () => {
+    let sphere = new Sphere();
+
+    sphere.transformation = {
+      matrix: matrixMultiply(scaling(1, 0.5, 1).matrix, rotationZ(Math.PI/5).matrix),
+      matrixType: matrixTypes.MULTIPLE
+    };
+
+    let normal = normalAt(sphere, new Point(0, Math.sqrt(2)/2, (-1 * Math.sqrt(2))/2));
+
+    expect(isEqual(normal.x, 0)).to.equal(true);
+    expect(isEqual(normal.y, 0.97014)).to.equal(true);
+    expect(isEqual(normal.z, -0.24254)).to.equal(true);
   });
 });

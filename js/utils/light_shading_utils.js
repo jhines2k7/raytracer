@@ -1,10 +1,25 @@
 'use strict';
 const Point = require('../point');
+const Vector = require('../vector');
 const normalize = require('../utils/normalize');
 const subtract = require('../utils/subtraction');
+const inverse = require('../utils/matrix_utils').inverse;
+const multiply = require('../utils/matrix_utils').matrixVectorMultiply;
+const transpose = require('../utils/matrix_utils').transpose;
 
-function normalAt(sphere, point) {
-  return normalize(subtract(point, new Point(0, 0, 0)));
+function normalAt(sphere, worldPoint) {
+  let worldPointVector = [worldPoint.x, worldPoint.y, worldPoint.z, 1];
+  let objectPoint = multiply(worldPointVector, inverse(sphere.transformation.matrix));
+
+  let objectNormal = subtract(new Point(objectPoint[0], objectPoint[1], objectPoint[2]), new Point(0, 0, 0));
+
+  let objectNormalVector = [objectNormal.x, objectNormal.y, objectNormal.z, 1];
+  let worldNormal = multiply(objectNormalVector, transpose(inverse(sphere.transformation.matrix)));
+
+  let resultVector = new Vector(worldNormal[0], worldNormal[1], worldNormal[2]);
+  resultVector.w = 0;
+
+  return normalize(resultVector);
 }
 
 module.exports = {
