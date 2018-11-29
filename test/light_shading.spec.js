@@ -17,6 +17,7 @@ const matrixMultiply = require('../js/utils/matrix_utils').matrixMultiply;
 const matrixTypes = require('../js/utils/matrix_types');
 const PointLight = require('../js/point_light');
 const Color = require('../js/color');
+const Material = require('../js/material');
 
 describe('Light and Shading', () => {
   it('the normal on a sphere at a point on the x-axis', () => {
@@ -136,6 +137,31 @@ describe('Light and Shading', () => {
   });
 
   it('the default material', () => {
+    let m = new Material();
 
+    expect(m.color.redValue).to.equal(255);
+    expect(m.color.greenValue).to.equal(255);
+    expect(m.color.blueValue).to.equal(255);
+    expect(m.ambient).to.equal(0.1);
+    expect(m.diffuse).to.equal(0.9);
+    expect(m.specular).to.equal(0.9);
+    expect(m.shininess).to.equal(200);
+  });
+
+  it('a sphere has a default material', () => {
+    let s = new Sphere();
+
+    expect(JSON.stringify(s.material)).to.equal(JSON.stringify(new Material()));
+  });
+
+  it('a sphere may be assigned a material', () => {
+    let s = new Sphere();
+
+    let m = new Material();
+    m.ambient = 1;
+
+    s.material = m;
+
+    expect(JSON.stringify(s.material)).to.equal(JSON.stringify(m));
   });
 });
