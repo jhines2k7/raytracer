@@ -15,6 +15,8 @@ const rotationZ = transformations.rotationZ;
 const isEqual = require('../js/utils/is_equal');
 const matrixMultiply = require('../js/utils/matrix_utils').matrixMultiply;
 const matrixTypes = require('../js/utils/matrix_types');
+const PointLight = require('../js/point_light');
+const Color = require('../js/color');
 
 describe('Light and Shading', () => {
   it('the normal on a sphere at a point on the x-axis', () => {
@@ -116,5 +118,24 @@ describe('Light and Shading', () => {
     expect(isEqual(r.x, 1)).to.equal(true);
     expect(isEqual(r.y, 0)).to.equal(true);
     expect(isEqual(r.z, 0)).to.equal(true);
+  });
+
+  it('a point light has position and intensity', () => {
+    let intensity = new Color(1, 1, 1);
+    let position = new Point(0, 0, 0);
+
+    let light = new PointLight(intensity, position);
+
+    expect(light.intensity.redValue).to.equal(255);
+    expect(light.intensity.greenValue).to.equal(255);
+    expect(light.intensity.blueValue).to.equal(255);
+
+    expect(light.position.x).to.equal(0);
+    expect(light.position.y).to.equal(0);
+    expect(light.position.z).to.equal(0);
+  });
+
+  it('the default material', () => {
+
   });
 });

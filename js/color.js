@@ -6,6 +6,10 @@ module.exports = class Color {
     this.green = green;
     this.blue = blue;
 
+    this.redValue = 0;
+    this.greenValue = 0;
+    this.blueValue = 0;
+
     if(this.red < 0) {
       this.redValue = 0;
     } else {
