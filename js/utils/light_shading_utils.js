@@ -6,6 +6,9 @@ const subtract = require('../utils/subtraction');
 const inverse = require('../utils/matrix_utils').inverse;
 const multiply = require('../utils/matrix_utils').matrixVectorMultiply;
 const transpose = require('../utils/matrix_utils').transpose;
+const dot = require('../utils/dot_product');
+const scalarMultiplication = require('../utils/scalar_multiplication');
+
 
 function normalAt(sphere, worldPoint) {
   let worldPointVector = [worldPoint.x, worldPoint.y, worldPoint.z, 1];
@@ -22,6 +25,15 @@ function normalAt(sphere, worldPoint) {
   return normalize(resultVector);
 }
 
+function reflect(vector, normal) {
+  let dotProduct = dot(vector, normal) * 2;
+
+  let scaledNormalDotProduct = scalarMultiplication(dotProduct, normal);
+
+  return subtract(vector, scaledNormalDotProduct);
+}
+
 module.exports = {
-  normalAt
+  normalAt,
+  reflect
 };

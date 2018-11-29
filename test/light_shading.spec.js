@@ -6,6 +6,7 @@ const Point = require('../js/point');
 const Vector = require('../js/vector');
 const lightShadingUtils = require('../js/utils/light_shading_utils');
 const normalAt = lightShadingUtils.normalAt;
+const reflect = lightShadingUtils.reflect;
 const normalize = require('../js/utils/normalize');
 const transformations = require('../js/utils/transformations');
 const translation = transformations.translation;
@@ -93,5 +94,27 @@ describe('Light and Shading', () => {
     expect(isEqual(normal.x, 0)).to.equal(true);
     expect(isEqual(normal.y, 0.97014)).to.equal(true);
     expect(isEqual(normal.z, -0.24254)).to.equal(true);
+  });
+
+  it('reflecting a vector approaching at 45 degrees', () => {
+    let v = new Vector(1, -1, 0);
+    let n = new Vector(0, 1, 0);
+
+    let r = reflect(v, n);
+
+    expect(r.x).to.equal(1);
+    expect(r.y).to.equal(1);
+    expect(r.z).to.equal(0);
+  });
+
+  it('reflecting a vector off a slanted surface', () => {
+    let vector = new Vector(0, -1, 0);
+    let normal = new Vector(Math.sqrt(2)/2, Math.sqrt(2)/2, 0);
+
+    let r = reflect(vector, normal);
+
+    expect(isEqual(r.x, 1)).to.equal(true);
+    expect(isEqual(r.y, 0)).to.equal(true);
+    expect(isEqual(r.z, 0)).to.equal(true);
   });
 });
