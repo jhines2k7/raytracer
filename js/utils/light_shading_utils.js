@@ -9,6 +9,11 @@ const transpose = require('../utils/matrix_utils').transpose;
 const dot = require('../utils/dot_product');
 const scalarMultiplication = require('../utils/scalar_multiplication');
 const Color = require('../color');
+const colorUtils = require('../utils/color_utils');
+const hadamardProduct = colorUtils.hadamardProduct;
+const multiplyByScalar = colorUtils.multiplyByScalar;
+const addColors = colorUtils.addColors;
+const negate = require('../utils/negate');
 
 function normalAt(sphere, worldPoint) {
   let worldPointVector = [worldPoint.x, worldPoint.y, worldPoint.z, 1];
@@ -34,7 +39,47 @@ function reflect(vector, normal) {
 }
 
 function lighting(material, light, position, eyeVector, normalVector) {
-  return new Color(1.9, 1.9, 1.9);
+  // combine the surface color with the light's color/intensity
+  let effectiveColor = hadamardProduct(material.color, light.intensity);
+
+  // find the direction to the light source
+  let lightVector = normalize(subtract(light.position, position));
+
+  // compute the ambient contribution
+  let ambient = hadamardProduct(effectiveColor, material.ambient);
+
+  // light_dot_normal represents the cosine of the angle between the
+  // light vector and the normal vector. A negative number means the
+  // light is on the other side of the surface
+  let lightDotNormal = dot(lightVector, normalVector);
+
+  let diffuse, specular;
+  const BLACK = new Color(0, 0, 0);
+
+  if(lightDotNormal < 0) {
+    diffuse = BLACK;
+    specular = BLACK;
+  } else {
+    //compute the diffuse contribution
+    diffuse = hadamardProduct(effectiveColor, hadamardProduct(material.diffuse, lightDotNormal));
+
+    // reflect_dot_eye represents the cosine of the angle between the
+    // reflection vector and the eye vector. A negative number means the
+    // light reflects away from the eye.
+    let reflectVector = reflect(negate(lightVector), normalVector);
+
+    let reflectDotEye = dot(reflectVector, eyeVector);
+
+    if(reflectDotEye <= 0) {
+      specular = BLACK;
+    } else {
+      let factor = Math.pow(reflectDotEye, material.shininess);
+
+      specular = multiplyByScalar(multiplyByScalar(light.intensity, material.specular), factor);
+    }
+  }
+
+  return addColors(addColors(ambient, diffuse), specular);
 }
 
 module.exports = {

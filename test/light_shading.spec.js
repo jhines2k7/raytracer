@@ -126,7 +126,7 @@ describe('Light and Shading', () => {
     let intensity = new Color(1, 1, 1);
     let position = new Point(0, 0, 0);
 
-    let light = new PointLight(intensity, position);
+    let light = new PointLight(position, intensity);
 
     expect(light.intensity.redValue).to.equal(255);
     expect(light.intensity.greenValue).to.equal(255);
