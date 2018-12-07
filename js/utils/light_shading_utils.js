@@ -8,7 +8,7 @@ const multiply = require('../utils/matrix_utils').matrixVectorMultiply;
 const transpose = require('../utils/matrix_utils').transpose;
 const dot = require('../utils/dot_product');
 const scalarMultiplication = require('../utils/scalar_multiplication');
-
+const Color = require('../color');
 
 function normalAt(sphere, worldPoint) {
   let worldPointVector = [worldPoint.x, worldPoint.y, worldPoint.z, 1];
@@ -33,7 +33,12 @@ function reflect(vector, normal) {
   return subtract(vector, scaledNormalDotProduct);
 }
 
+function lighting(material, light, position, eyeVector, normalVector) {
+  return new Color(1.9, 1.9, 1.9);
+}
+
 module.exports = {
   normalAt,
-  reflect
+  reflect,
+  lighting
 };

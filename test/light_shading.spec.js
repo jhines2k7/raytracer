@@ -7,6 +7,7 @@ const Vector = require('../js/vector');
 const lightShadingUtils = require('../js/utils/light_shading_utils');
 const normalAt = lightShadingUtils.normalAt;
 const reflect = lightShadingUtils.reflect;
+const lighting = lightShadingUtils.lighting;
 const normalize = require('../js/utils/normalize');
 const transformations = require('../js/utils/transformations');
 const translation = transformations.translation;
@@ -174,25 +175,64 @@ describe('Lighting: ', () => {
     let eyeVector = new Vector(0, 0, -1);
     let normalVector = new Vector(0, 0, -1);
 
-    let pointLight = new PointLight(new Color(1, 1, 1), new Point(0, 0, -10));
+    let pointLight = new PointLight(new Point(0, 0, -10), new Color(1, 1, 1));
 
-    let result = lighting(material, pointLight, position, eyeVector, normalVector);
+    let color = lighting(material, pointLight, position, eyeVector, normalVector);
 
-    expect(result.red).to.equal(1.9);
-    expect(result.green).to.equal(1.9);
-    expect(result.blue).to.equal(1.9);
+    expect(color.red).to.equal(1.9);
+    expect(color.green).to.equal(1.9);
+    expect(color.blue).to.equal(1.9);
   });
 
   it('lighting with the eye between light and surface, eye offset 45 degrees', () => {
     let eyeVector = new Vector(0, Math.sqrt(2)/2, (-1*Math.sqrt(2))/2);
     let normalVector = new Vector(0, 0, -1);
 
-    let pointLight = new PointLight(new Color(1, 1, 1), new Point(0, 0, -10));
+    let pointLight = new PointLight(new Point(0, 0, -10), new Color(1, 1, 1));
 
-    let result = lighting(material, pointLight, position, eyeVector, normalVector);
+    let color = lighting(material, pointLight, position, eyeVector, normalVector);
 
-    expect(result.red).to.equal(1.0);
-    expect(result.green).to.equal(1.0);
-    expect(result.blue).to.equal(1.0);
+    expect(color.red).to.equal(1.0);
+    expect(color.green).to.equal(1.0);
+    expect(color.blue).to.equal(1.0);
+  });
+
+  it('lighting with the eye opposite surface, light offset 45 degrees', () => {
+    let eyeVector = new Vector(0, 0, -1);
+    let normalVector = new Vector(0, 0, -1);
+
+    let pointLight = new PointLight(new Point(0, 10, -10), new Color(1, 1, 1));
+
+    let color = lighting(material, pointLight, position, eyeVector, normalVector);
+
+    expect(isEqual(color.red), 0.7634).to.equal(true);
+    expect(isEqual(color.green), 0.7634).to.equal(true);
+    expect(isEqual(color.blue), 0.7634).to.equal(true);
+  });
+
+  it('lighting with the eye in the path of the reflection vector', () => {
+    let eyeVector = new Vector(0, (-1*Math.sqrt(2))/2, (-1*Math.sqrt(2))/2);
+    let normalVector = new Vector(0, 0, -1);
+
+    let pointLight = new PointLight(new Point(0, 10, -10), new Color(1, 1, 1));
+
+    let color = lighting(material, pointLight, position, eyeVector, normalVector);
+
+    expect(isEqual(color.red), 1.6364).to.equal(true);
+    expect(isEqual(color.green), 1.6364).to.equal(true);
+    expect(isEqual(color.blue), 1.6364).to.equal(true);
+  });
+
+  it('lighting with the light behind the surface', () => {
+    let eyeVector = new Vector(0, 0, -1);
+    let normalVector = new Vector(0, 0, -1);
+
+    let pointLight = new PointLight(new Point(0, 0, -10), new Color(1, 1, 1));
+
+    let color = lighting(material, pointLight, position, eyeVector, normalVector);
+
+    expect(isEqual(color.red), 0.1).to.equal(true);
+    expect(isEqual(color.green), 0.1).to.equal(true);
+    expect(isEqual(color.blue), 0.1).to.equal(true);
   });
 });
