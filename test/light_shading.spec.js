@@ -165,3 +165,34 @@ describe('Light and Shading', () => {
     expect(JSON.stringify(s.material)).to.equal(JSON.stringify(m));
   });
 });
+
+describe('Lighting: ', () => {
+  let material = new Material();
+  let position = new Point(0, 0, 0);
+
+  it('lighting with the eye between the light and the surface', () => {
+    let eyeVector = new Vector(0, 0, -1);
+    let normalVector = new Vector(0, 0, -1);
+
+    let pointLight = new PointLight(new Color(1, 1, 1), new Point(0, 0, -10));
+
+    let result = lighting(material, pointLight, position, eyeVector, normalVector);
+
+    expect(result.red).to.equal(1.9);
+    expect(result.green).to.equal(1.9);
+    expect(result.blue).to.equal(1.9);
+  });
+
+  it('lighting with the eye between light and surface, eye offset 45 degrees', () => {
+    let eyeVector = new Vector(0, Math.sqrt(2)/2, (-1*Math.sqrt(2))/2);
+    let normalVector = new Vector(0, 0, -1);
+
+    let pointLight = new PointLight(new Color(1, 1, 1), new Point(0, 0, -10));
+
+    let result = lighting(material, pointLight, position, eyeVector, normalVector);
+
+    expect(result.red).to.equal(1.0);
+    expect(result.green).to.equal(1.0);
+    expect(result.blue).to.equal(1.0);
+  });
+});
