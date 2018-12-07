@@ -46,7 +46,7 @@ function lighting(material, light, position, eyeVector, normalVector) {
   let lightVector = normalize(subtract(light.position, position));
 
   // compute the ambient contribution
-  let ambient = hadamardProduct(effectiveColor, material.ambient);
+  let ambient = multiplyByScalar(material.ambient, effectiveColor);
 
   // light_dot_normal represents the cosine of the angle between the
   // light vector and the normal vector. A negative number means the
@@ -61,7 +61,7 @@ function lighting(material, light, position, eyeVector, normalVector) {
     specular = BLACK;
   } else {
     //compute the diffuse contribution
-    diffuse = hadamardProduct(effectiveColor, hadamardProduct(material.diffuse, lightDotNormal));
+    diffuse = multiplyByScalar(lightDotNormal, multiplyByScalar(material.diffuse, effectiveColor));
 
     // reflect_dot_eye represents the cosine of the angle between the
     // reflection vector and the eye vector. A negative number means the
