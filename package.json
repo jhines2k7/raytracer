@@ -12,7 +12,9 @@
     "debugPuttingItTogetherChapt4": "node %NODE_DEBUG_OPTION% js/putting_it_together/chapter4.js",
     "puttingItTogetherChapt4": "node js/putting_it_together/chapter4.js",
     "debugPuttingItTogetherChapt5": "node %NODE_DEBUG_OPTION% js/putting_it_together/chapter5.js",
-    "puttingItTogetherChapt5": "node js/putting_it_together/chapter5.js"
+    "puttingItTogetherChapt5": "node js/putting_it_together/chapter5.js",
+    "debugPuttingItTogetherChapt6": "node %NODE_DEBUG_OPTION% js/putting_it_together/chapter6.js",
+    "puttingItTogetherChapt6": "node js/putting_it_together/chapter6.js"
   },
   "keywords": [],
   "author": "",
