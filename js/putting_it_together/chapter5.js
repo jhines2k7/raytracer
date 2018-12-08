@@ -47,7 +47,7 @@ for(let y = 0; y < canvasPixels; y++) {
 }
 
 let FILE_PATH = './';
-let FILE_NAME = 'sphere_shadow.ppm';
+let FILE_NAME = 'shadow.ppm';
 let FILE = FILE_PATH + FILE_NAME;
 
 if(fs.existsSync(FILE)) {
