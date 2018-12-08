@@ -9,6 +9,8 @@ const Color = require('../js/color');
 const Sphere = require('../js/sphere');
 const Point = require('../js/point');
 const scaling = require('../js/utils/transformations').scaling;
+const Ray = require('../js/ray');
+const Vector = require('../js/vector');
 
 describe('Building a world', () => {
   xit('creating a world', () => {
@@ -34,5 +36,19 @@ describe('Building a world', () => {
     expect(JSON.stringify(world.light)).to.equal(JSON.stringify(light));
     expect(JSON.stringify(world.objects[0])).to.equal(JSON.stringify(s1));
     expect(JSON.stringify(world.objects[1])).to.equal(JSON.stringify(s2));
+  });
+
+  it('intersect the world with a ray', () => {
+    let world = new World();
+
+    let ray = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
+
+    let intersections = intersectWorld(world, ray);
+
+    expect(intersections.length).to.equal(4);
+    expect(intersections[0].timeValueOfIntersection).to.equal(4);
+    expect(intersections[1].timeValueOfIntersection).to.equal(4.5);
+    expect(intersections[2].timeValueOfIntersection).to.equal(5.5);
+    expect(intersections[3].timeValueOfIntersection).to.equal(6);
   });
 });
