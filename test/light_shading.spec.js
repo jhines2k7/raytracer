@@ -205,9 +205,9 @@ describe('Lighting: ', () => {
 
     let color = lighting(material, pointLight, position, eyeVector, normalVector);
 
-    expect(isEqual(color.red), 0.7634).to.equal(true);
-    expect(isEqual(color.green), 0.7634).to.equal(true);
-    expect(isEqual(color.blue), 0.7634).to.equal(true);
+    expect(isEqual(color.red, 0.7364)).to.equal(true);
+    expect(isEqual(color.green, 0.7364)).to.equal(true);
+    expect(isEqual(color.blue, 0.7364)).to.equal(true);
   });
 
   it('lighting with the eye in the path of the reflection vector', () => {
@@ -218,21 +218,21 @@ describe('Lighting: ', () => {
 
     let color = lighting(material, pointLight, position, eyeVector, normalVector);
 
-    expect(isEqual(color.red), 1.6364).to.equal(true);
-    expect(isEqual(color.green), 1.6364).to.equal(true);
-    expect(isEqual(color.blue), 1.6364).to.equal(true);
+    expect(isEqual(color.red, 1.6364)).to.equal(true);
+    expect(isEqual(color.green, 1.6364)).to.equal(true);
+    expect(isEqual(color.blue, 1.6364)).to.equal(true);
   });
 
   it('lighting with the light behind the surface', () => {
     let eyeVector = new Vector(0, 0, -1);
     let normalVector = new Vector(0, 0, -1);
 
-    let pointLight = new PointLight(new Point(0, 0, -10), new Color(1, 1, 1));
+    let pointLight = new PointLight(new Point(0, 0, 10), new Color(1, 1, 1));
 
     let color = lighting(material, pointLight, position, eyeVector, normalVector);
 
-    expect(isEqual(color.red), 0.1).to.equal(true);
-    expect(isEqual(color.green), 0.1).to.equal(true);
-    expect(isEqual(color.blue), 0.1).to.equal(true);
+    expect(isEqual(color.red, 0.1)).to.equal(true);
+    expect(isEqual(color.green, 0.1)).to.equal(true);
+    expect(isEqual(color.blue, 0.1)).to.equal(true);
   });
 });

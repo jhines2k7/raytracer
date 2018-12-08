@@ -75,7 +75,7 @@ function lighting(material, light, position, eyeVector, normalVector) {
     } else {
       let factor = Math.pow(reflectDotEye, material.shininess);
 
-      specular = multiplyByScalar(multiplyByScalar(light.intensity, material.specular), factor);
+      specular = multiplyByScalar(material.specular * factor, light.intensity);
     }
   }
 
