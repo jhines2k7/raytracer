@@ -11,6 +11,7 @@ const Point = require('../js/point');
 const scaling = require('../js/utils/transformations').scaling;
 const Ray = require('../js/ray');
 const Vector = require('../js/vector');
+const intersectWorld = require('../js/utils/world_utils').intersectWorld;
 
 describe('Building a world', () => {
   xit('creating a world', () => {

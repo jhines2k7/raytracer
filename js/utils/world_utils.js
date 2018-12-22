@@ -7,10 +7,14 @@ function intersectWorld(world, ray) {
   let intersections = [];
 
   for(let i = 0; i < world.objects.length; i++) {
+    let object = world.objects[i];
 
+    intersections.push(...intersect(object, ray));
   }
 
-  return intersections;
+  return intersections.sort((a, b) => {
+    return a.timeValueOfIntersection - b.timeValueOfIntersection;
+  });
 }
 
 module.exports = {
