@@ -17,6 +17,10 @@ function intersectWorld(world, ray) {
   });
 }
 
+function precomputeComputations() {
+
+}
+
 module.exports = {
   intersectWorld
 };

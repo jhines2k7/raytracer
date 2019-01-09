@@ -12,6 +12,7 @@ const scaling = require('../js/utils/transformations').scaling;
 const Ray = require('../js/ray');
 const Vector = require('../js/vector');
 const intersectWorld = require('../js/utils/world_utils').intersectWorld;
+const intersect = require('../js/utils/intersection_utils').intersect;
 
 describe('Building a world', () => {
   xit('creating a world', () => {
@@ -51,5 +52,12 @@ describe('Building a world', () => {
     expect(intersections[1].timeValueOfIntersection).to.equal(4.5);
     expect(intersections[2].timeValueOfIntersection).to.equal(5.5);
     expect(intersections[3].timeValueOfIntersection).to.equal(6);
+  });
+
+  it('precomputing the state of an intersection', () => {
+    let ray = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
+    let sphere = new Sphere();
+
+    let intersections
   });
 });
